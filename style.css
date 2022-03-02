@@ -1,0 +1,228 @@
+/* GENERAL */
+@font-face {
+    font-family: "Make the best";
+    src: url("Make the Best - Personal Use.otf")
+  }
+
+*{
+    text-align: center;
+    font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif; 
+    line-height: 1.5;
+    list-style-type: none;
+}
+
+
+html, body {
+    height: 70%;
+    background-color:#3AAFA9;
+}
+
+body {
+
+    margin:0px auto;
+}
+
+h1 {
+    color: #feffff;
+    font-size: 100px;
+    font-family: "Make the best";
+    font-weight: lighter;
+    line-height: 0px;
+}
+
+h2 {
+    color:#17252A;
+    font-size: 30px;
+    font-family: "Make the best";
+    font-weight: lighter;
+    text-decoration: underline;
+    line-height: 1;
+    margin-top:0;
+}
+
+
+input{
+    margin : 5px 8px;
+    border-radius: 3px;
+    outline: none;
+	border : solid 1px #17252A;
+}
+button{
+    box-shadow: 2px 2px 7px 1px #17252A;
+}
+
+form{
+    display: inline-block;
+    vertical-align: middle;  
+    line-height: 1;
+    font-size:smaller;
+}
+
+ol {
+    padding:0;
+}
+/*INTRO*/
+button, #n {
+    background-color: #feffff;
+    padding: 15px;
+    color: #17252A;
+    border-radius: 5px;
+    border : none;
+
+}
+
+#n {
+    vertical-align: middle;
+}
+/*MAIN BOX*/
+#biggerbox{
+    display:  none;
+    height: relative ;
+    width: 80%;
+    background-color: #feffff;
+    position: relative;
+    margin: 10px auto ;
+    /* vertical-align:50%; */
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+
+/* Buttons*/
+#prev_btn{
+    background-color: #def2f1;
+    vertical-align: bottom;
+    color: #17252A;
+    width: 45%;
+} 
+
+#next_btn{
+    background-color: #2b7a78;
+    vertical-align: bottom;
+    color: #def2f1;
+    width: 45%;
+} 
+
+button:hover{
+    cursor: pointer;
+    box-shadow: 0px 0px 0px 0px ;
+}
+
+.btn:active{
+    border: #3AAFA9 solid 1px;    
+
+}
+
+.saveOrDeleteButtons{
+    width:30px;
+    height:30px;
+    padding: 0;
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle; 
+    border: none;
+    /* background: url("./Images/redCross.png") */
+}
+
+#buttons{
+    clear:both;
+    display:center;
+}
+
+
+/* Participants' rules*/
+.rules{display:center;}
+
+.participantImage{
+    height:max-content;
+    width:auto;
+    display:inline-block;
+    margin: 5px;
+    padding: 10px ;
+    border:#17252A solid ;
+    border-radius: 20px;
+    box-shadow: 0px 0px 0px 0px ;
+    background-color:#def2f1;
+    border-width: 1px;
+}
+
+.warning {
+    display:none;
+}
+
+.participantImages_block{
+    margin-bottom: 20px;
+    display:block;
+    min-height: 26px;
+
+}
+
+.rulesBlock{
+    min-height: 60px;
+    margin: 5px;
+    display:flex-start;
+    background-color: #def2f1;
+    border-radius: 5px;
+    border: #17252A solid 1px;
+    padding: 5px 10px 10px 15px;
+}
+.currentRule{
+    text-align: center;
+    height: 40px;
+    margin-bottom: 10px;
+    display:flex-start;
+}
+
+
+.selected{
+    font-weight: "bold";
+    border-width: 3px;
+}
+
+
+.savedRules{
+    display:inline-table;
+    
+}
+
+#reciprocal{
+    border-bottom: #17252A solid 3px;
+}
+
+/* Recap */
+/* #recap{
+    display: inline-block;
+} */
+#recap h2{
+    /* margin-bottom: 0; */
+    margin: 0;
+    float:left;
+    /* width:30%; */
+    text-align: left;
+    clear:both;
+
+}
+#recap li{
+    margin: 0 10%;
+    padding: 0;
+    /* float:right; */
+    /* width:69%; */
+    text-align: left;
+    list-style-type: circle;
+    clear:both;
+    /* display:inline-block; */
+
+}
+/* #recapParticipants{
+    width:30%
+} */
+.recapSection{
+    /* width: 45%; */
+    float:left;
+    margin-bottom: 20px;
+    padding-left:1em}
+
+#recapRules{
+    float:right; 
+}
