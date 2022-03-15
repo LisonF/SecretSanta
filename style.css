@@ -12,13 +12,14 @@
 }
 
 
-html, body {
-    height: 70%;
+html {
+    height: 100%;
+    width: 100%;
     background-color:#3AAFA9;
 }
 
 body {
-
+    background-color:#3AAFA9;
     margin:0px auto;
 }
 
@@ -79,6 +80,7 @@ button, #n {
     display:  none;
     height: relative ;
     width: 80%;
+    min-height: 60%;
     background-color: #feffff;
     position: relative;
     margin: 10px auto ;
@@ -104,7 +106,7 @@ button, #n {
     width: 45%;
 } 
 
-button:hover{
+button:hover, .saveOrDeleteButtons:hover{
     cursor: pointer;
     box-shadow: 0px 0px 0px 0px ;
 }
@@ -115,14 +117,13 @@ button:hover{
 }
 
 .saveOrDeleteButtons{
-    width:30px;
-    height:30px;
+    width: 25px;
+    height:25px;
     padding: 0;
     margin-left: 10px;
     display: inline-block;
     vertical-align: middle; 
     border: none;
-    /* background: url("./Images/redCross.png") */
 }
 
 #buttons{
@@ -132,7 +133,7 @@ button:hover{
 
 
 /* Participants' rules*/
-.rules{display:center;}
+/* .rules{display:center;} */
 
 .participantImage{
     height:max-content;
@@ -147,6 +148,8 @@ button:hover{
     border-width: 1px;
 }
 
+.participantImage:hover{cursor:pointer;}
+
 .warning {
     display:none;
 }
@@ -160,13 +163,16 @@ button:hover{
 
 .rulesBlock{
     min-height: 60px;
-    margin: 5px;
-    display:flex-start;
+    margin: 5px auto;
+    /* display:flex-start; */
     background-color: #def2f1;
     border-radius: 5px;
-    border: #17252A solid 1px;
-    padding: 5px 10px 10px 15px;
+    /* border: #17252A solid 1px; */
+    padding: 5px auto 10px auto;
 }
+
+.rulesBlock li{ margin:0.5em auto}
+
 .currentRule{
     text-align: center;
     height: 40px;
@@ -183,46 +189,13 @@ button:hover{
 
 .savedRules{
     display:inline-table;
-    
 }
 
 #reciprocal{
     border-bottom: #17252A solid 3px;
 }
 
-/* Recap */
-/* #recap{
-    display: inline-block;
-} */
-#recap h2{
-    /* margin-bottom: 0; */
-    margin: 0;
-    float:left;
-    /* width:30%; */
-    text-align: left;
-    clear:both;
-
+@media only screen and (max-width: 768px){
+    h1{font-size: 50px;}
 }
-#recap li{
-    margin: 0 10%;
-    padding: 0;
-    /* float:right; */
-    /* width:69%; */
-    text-align: left;
-    list-style-type: circle;
-    clear:both;
-    /* display:inline-block; */
 
-}
-/* #recapParticipants{
-    width:30%
-} */
-.recapSection{
-    /* width: 45%; */
-    float:left;
-    margin-bottom: 20px;
-    padding-left:1em}
-
-#recapRules{
-    float:right; 
-}

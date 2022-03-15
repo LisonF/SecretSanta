@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
 <html>
     <head>
         <meta charset="utf-8">
@@ -10,36 +10,38 @@
         <title>SecretSanta</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="shortcut icon" href="Images\icon.png">
         <script src="jquery-3.6.0.js"></script>
     </head>
     <body>
         <h1>( > Secret Santa )</h1>
         <p class = "description">Description du tirage au sort</p>
         <button class= "btn" id = "start_btn">C'est parti !</button>
-        <script src="home.js"></script>
         <div id="biggerbox">
-            <div class = "draw" id="nbParticipants">
+            <section class = "draw" id="nbParticipants">
                 <h3>Nombre de participants</h3>
                 <p class="instructions">Combien de personnes participent à votre Secret Santa ?</p>
                 <input type="number" min = 3 name="nbPp" id="n">
                 <br>
 
-            </div>
-            <div class = "draw" id="participantsName">
+            </section>
+            <section class = "draw" id="participantsName">
                 <h3>Entrez le nom des participants</h3>
                 <div id = "fillParticipantsName">
                 </div>
                 <br>
-            </div>
-            <div class="draw" id="rules">
+            </section>
+            <section class="draw" id="rules">
                 <div class = "rules" id="reciprocal">
                     <h3>Règles réciproques</h3>
-                    <p id = reciprocal_instructions> Sélectionnez les partipants qui ne peuvent pas se faire de cadeaux puis appuyer sur valider.</p>
+                    <p id = reciprocal_instructions> Sélectionnez les partipants qui ne peuvent pas se faire de cadeaux.</p>
                     <div class= warning> Vous ne pouvez sélectionner que deux personnes en même temps.</div><br>
-                    <div class = "participantImages_block">
+                    <div class = "participantImages_block">                        ECRIRE LE FORMAT DE LA REGLE, CLIQUER SUR UN PARTICIPANT REMPLIT LE CHAMP
+
                     </div>
-                    <div id="currentRule_reciprocal" class = "currentRule"></div>
+                    <div id="currentRule_reciprocal" class = "currentRule">
+                    </div>
                     <div class="rulesBlock">
                         <h2> Règles</h2>
                         <ol></ol>
@@ -49,7 +51,7 @@
                 </div>
                 <div class = "rules" id="unreciprocal">
                     <h3>Règles non réciproques</h3>
-                    <p id = unreciprocal_instructions> Sélectionnez les partipants qui ____ puis appuyer sur valider.</p>
+                    <p id = unreciprocal_instructions> Sélectionnez les partipants qui ____.</p>
                     <div class= warning> Vous ne pouvez sélectionner que deux personnes en même temps.</div><br>
                     <div class = "participantImages_block">
                     </div>
@@ -61,38 +63,17 @@
                     <br>
                     <br>
                 </div>
-            </div>
-            
-            <div class = "draw" id="recap">
-                <h3>Récapitulatif</h3>
-                <div class = "recapSection" id="recapParticipants">
-                    <h2>Participants au tirage : </h2>
-                    <ol>
-                    </ol>
-                </div>
-                <div class = "recapSection" id="recapRules">
-                    <h2>Règles :</h2> 
-                    <ol>
-                    </ol>
-                </div>
+            </section>            
 
-            </div>
-            
         <section id = buttons>
             <button class="btn" id = "prev_btn">Précédent</button>
             <button class="btn" id = "next_btn">Suivant</button>
-            <button class="btn" id = "validate_btn">Valider le tirage</button>
+            <button class="btn" id = "validate_btn" href="test-draw.html">Valider le tirage</button>
         </section>
 
             </div>
  
         </div>
-        
-
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        
-        <script src="script.js" async defer></script>
+        <script type = "module" src="script.js" async defer></script>
     </body>
 </html>
