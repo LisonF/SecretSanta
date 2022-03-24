@@ -3,6 +3,15 @@
     font-family: "Make the best";
     src: url("Make the Best - Personal Use.otf")
   }
+:root{
+    --white:#F2F3F7;
+    --grey:#B9B6B6;
+    --black:#25283D;
+    --blue: #3AB9B3;
+    --pink:#D81E5B;
+    --light-pink: #FDEDF2;
+    box-sizing: border-box;
+}
 
 *{
     text-align: center;
@@ -12,44 +21,35 @@
 }
 
 
-html {
-    height: 100%;
-    width: 100%;
-    background-color:#3AAFA9;
+html{
+    height: 90%;
+    /* width: 95%; */
 }
 
 body {
-    background-color:#3AAFA9;
+    height: 100%;
+    width: 100%;
+    background-color:var(--blue);
     margin:0px auto;
 }
 
 h1 {
-    color: #feffff;
+    color: var(--white);
     font-size: 100px;
     font-family: "Make the best";
     font-weight: lighter;
-    line-height: 0px;
+    line-height: 1;
+    margin: 50px auto 0 auto;
 }
 
 h2 {
-    color:#17252A;
+    color:var(--black);
     font-size: 30px;
     font-family: "Make the best";
     font-weight: lighter;
     text-decoration: underline;
     line-height: 1;
     margin-top:0;
-}
-
-
-input{
-    margin : 5px 8px;
-    border-radius: 3px;
-    outline: none;
-	border : solid 1px #17252A;
-}
-button{
-    box-shadow: 2px 2px 7px 1px #17252A;
 }
 
 form{
@@ -64,27 +64,25 @@ ol {
 }
 /*INTRO*/
 button, #n {
-    background-color: #feffff;
+    background-color: var(--white);
     padding: 15px;
-    color: #17252A;
+    color: var(--black);
     border-radius: 5px;
     border : none;
-
 }
 
-#n {
-    vertical-align: middle;
-}
+
+
 /*MAIN BOX*/
 #biggerbox{
-    display:  none;
-    height: relative ;
+    /* TODO: Resoudre le problème de taille */
+    min-height: calc(70% - 150px);
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 80%;
-    min-height: 60%;
-    background-color: #feffff;
-    position: relative;
+    background-color: var(--white);
     margin: 10px auto ;
-    /* vertical-align:50%; */
     padding: 20px;
     text-align: center;
     border-radius: 10px;
@@ -92,30 +90,38 @@ button, #n {
 
 
 /* Buttons*/
-#prev_btn{
-    background-color: #def2f1;
-    vertical-align: bottom;
-    color: #17252A;
+/* TODO: Change buttons size, the are too big on big screens. Make it responsive */
+#prev_btn, #restart_btn{
+    background-color: var(--light-pink);
+    color: var(--black);
     width: 45%;
 } 
 
-#next_btn{
-    background-color: #2b7a78;
+
+#next_btn, #validate_btn,  #share_btn{
+    background-color: var(--pink);
     vertical-align: bottom;
-    color: #def2f1;
+    color: var(--white);
     width: 45%;
+} 
+
+#start_btn:hover{
+    background-color: var(--pink);
+    color: var(--white);
+    font-weight: bold;
+    position:static bottom;
+}
+#prev_btn:hover, #next_btn:hover, #validate_btn:hover, #results .btn:hover{
+    background-color: var(--blue);
+    color: var(--white);
+    font-weight: bold;
 } 
 
 button:hover, .saveOrDeleteButtons:hover{
     cursor: pointer;
-    box-shadow: 0px 0px 0px 0px ;
 }
 
-.btn:active{
-    border: #3AAFA9 solid 1px;    
-
-}
-
+#results .btn{margin-top: 2em;}
 .saveOrDeleteButtons{
     width: 25px;
     height:25px;
@@ -126,14 +132,44 @@ button:hover, .saveOrDeleteButtons:hover{
     border: none;
 }
 
-#buttons{
-    clear:both;
-    display:center;
+#buttons{margin-top: 2em;}
+
+/*Number of participants*/
+/* TODO:increase it lisibility */
+/* TODO:center vertically */
+.draw{
+    min-height: calc(100% - 90px);
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+}
+#n{
+    color:var(--pink);
+    margin:auto;
+    font-size: large;
+    border: var(--grey) 2px solid;
 }
 
+/*Name inputs*/
+.participantName_input{
+    margin : 15px 8px;
+    background-color: var(--white);
+    text-align: center;
+    outline: none;
+    border:none;
+	border-bottom: solid 1px var(--black);
+    color:var(--pink);
+    caret-color:var(--black);
+    font-weight: bold;
+    font-size: large;
+}
 
+.participantName_input::placeholder{
+    font-weight: normal;
+    font-size: small;
+}
 /* Participants' rules*/
-/* .rules{display:center;} */
+/*TODO: Make it pretty! */
 
 .participantImage{
     height:max-content;
@@ -141,31 +177,29 @@ button:hover, .saveOrDeleteButtons:hover{
     display:inline-block;
     margin: 5px;
     padding: 10px ;
-    border:#17252A solid ;
     border-radius: 20px;
-    box-shadow: 0px 0px 0px 0px ;
-    background-color:#def2f1;
+    background-color: var(--grey);
+    color:var(--black);
     border-width: 1px;
 }
 
-.participantImage:hover{cursor:pointer;}
-
-.warning {
-    display:none;
+.participantImage:hover{cursor:pointer;
+background-color: var(--blue);
+color: var(--white);
 }
+
 
 .participantImages_block{
     margin-bottom: 20px;
     display:block;
     min-height: 26px;
-
 }
 
 .rulesBlock{
     min-height: 60px;
     margin: 5px auto;
     /* display:flex-start; */
-    background-color: #def2f1;
+    background-color: var(--white);
     border-radius: 5px;
     /* border: #17252A solid 1px; */
     padding: 5px auto 10px auto;
@@ -174,26 +208,58 @@ button:hover, .saveOrDeleteButtons:hover{
 .rulesBlock li{ margin:0.5em auto}
 
 .currentRule{
+    display:grid;
+    grid-template-columns: [txt] 90% [btn] 10%;
     text-align: center;
     height: 40px;
-    margin-bottom: 10px;
-    display:flex-start;
 }
 
+.ruleText{
+    grid-column: txt;
+    display: inline-block;
+    /* display: flex; */
+    justify-content: start;
+    vertical-align: bottom;
+    margin:1em;
+}
+
+.ruleText#text{
+    display: inline-block;
+    align-self: flex-end;}
+
+.ruleText [class*="participant"]{
+    display: inline-block;
+    /* align-self: flex-end; */
+    font-weight: bold;
+    min-width: 50px;
+    height: 20px;
+    padding:0 1em 0.25em 1em;
+    border-bottom: var(--black) 1px solid;
+    margin: 0 3px;
+}
+
+.ruleValidation{
+    grid-column: btn;
+    align-self: center;
+}
 
 .selected{
-    font-weight: "bold";
-    border-width: 3px;
+    background-color: var(--blue);
+    color:var(--white);
+    font-weight: bold;
 }
-
 
 .savedRules{
     display:inline-table;
 }
 
 #reciprocal{
-    border-bottom: #17252A solid 3px;
+    border-bottom: --black solid 3px;
 }
+
+/* Results */
+#results{align-self: stretch;}
+
 
 @media only screen and (max-width: 768px){
     h1{font-size: 50px;}

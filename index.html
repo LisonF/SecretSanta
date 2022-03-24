@@ -20,10 +20,8 @@
         <button class= "btn" id = "start_btn">C'est parti !</button>
         <div id="biggerbox">
             <section class = "draw" id="nbParticipants">
-                <h3>Nombre de participants</h3>
-                <p class="instructions">Combien de personnes participent à votre Secret Santa ?</p>
+                <h3 class="instructions">Combien de personnes participent ?</p>
                 <input type="number" min = 3 name="nbPp" id="n">
-                <br>
 
             </section>
             <section class = "draw" id="participantsName">
@@ -36,44 +34,48 @@
                 <div class = "rules" id="reciprocal">
                     <h3>Règles réciproques</h3>
                     <p id = reciprocal_instructions> Sélectionnez les partipants qui ne peuvent pas se faire de cadeaux.</p>
-                    <div class= warning> Vous ne pouvez sélectionner que deux personnes en même temps.</div><br>
-                    <div class = "participantImages_block">                        ECRIRE LE FORMAT DE LA REGLE, CLIQUER SUR UN PARTICIPANT REMPLIT LE CHAMP
-
+                    <div class = "participantImages_block">                      
                     </div>
                     <div id="currentRule_reciprocal" class = "currentRule">
+                        <div class="ruleText">
+                            <strong class="participant1 reciprocal"> </strong> 
+                            et
+                            <strong class="participant2 reciprocal"> </strong> 
+                            ne peuvent pas se faire de cadeau.                                                     
+                        </div>
+                        <img src="/Images/greenTick.png" alt="ruleValidation" class="saveOrDeleteButtons ruleValidation" form="currentRule_reciprocal">
+
                     </div>
-                    <div class="rulesBlock">
-                        <h2> Règles</h2>
-                        <ol></ol>
-                    </div>
-                    <br>
-                    <br>
                 </div>
                 <div class = "rules" id="unreciprocal">
                     <h3>Règles non réciproques</h3>
-                    <p id = unreciprocal_instructions> Sélectionnez les partipants qui ____.</p>
-                    <div class= warning> Vous ne pouvez sélectionner que deux personnes en même temps.</div><br>
+                    <p id = unreciprocal_instructions> Sélectionnez les partipants qui ne peuvent pas se faire de cadeau.</p>
                     <div class = "participantImages_block">
                     </div>
-                    <div id="currentRule_unreciprocal" class = "currentRule"></div>
-                    <div class="rulesBlock">
-                        <h2> Règles</h2>
-                        <ol></ol>
+                    <div id="currentRule_unreciprocal" class = "currentRule">
+                        <div class="ruleText">
+                            <div class="participant1 unreciprocal"> </div> 
+                            ne peut pas faire de cadeau à 
+                            <div class="participant2 unreciprocal"> </div>.                 
+                        </div>
+                        <img src="/Images/greenTick.png" alt="ruleValidation" class="saveOrDeleteButtons ruleValidation" form="currentRule_unreciprocal">
                     </div>
-                    <br>
-                    <br>
                 </div>
             </section>            
-
-        <section id = buttons>
-            <button class="btn" id = "prev_btn">Précédent</button>
-            <button class="btn" id = "next_btn">Suivant</button>
-            <button class="btn" id = "validate_btn" href="test-draw.html">Valider le tirage</button>
-        </section>
-
+            <section id="results">
+                <!-- <h3>Résultats</h3> -->
+                <div id="resultList"></div>
+                <button class="btn" id="restart_btn">Recommencer</button>
+                <button class="btn" id="share_btn">Partager</button>
+            </section>
+            <div id = buttons>
+                <button class="btn" id = "prev_btn">Précédent</button>
+                <button class="btn" id = "next_btn">Suivant</button>
+                <button class="btn" id = "validate_btn" href="test-draw.html">Valider</button>
             </div>
- 
+
         </div>
-        <script type = "module" src="script.js" async defer></script>
+
+         <script type = "module" src="script.js" async defer></script>
     </body>
 </html>

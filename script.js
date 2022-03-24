@@ -1,6 +1,3 @@
-// import { shuffle } from './shuffle.js';
-
-
 /* DEFINITION DES VARIABLES PARTAGEES DANS LE DOCUMENT */
 const draw = document.getElementsByClassName("draw");
 const currentRule = document.getElementsByClassName("currentRule");
@@ -11,8 +8,6 @@ let currentBox = draw[0];
 let selectedParticipants = {reciprocal: [], unreciprocal: [] };
 var participantsList = [];
 
-let validateButton = createImageButton("./Images/greenTick.png"); 
-validateButton.classList.add("ruleValidation");
 
 /* INITIALISATION DES REGLES */ 
 const rules = {reciprocal: [], unreciprocal: [] };
@@ -26,6 +21,8 @@ class Rule {
 
     }
 };
+
+
 
 /***************************/
 /* NAVIGATE ACROSS THE APP */
@@ -74,6 +71,7 @@ prerequisites
 /***************************/
 /* NAVIGATE ACROSS THE APP */
 /***************************/
+$("#biggerbox").hide();
 
 start_btn.addEventListener("click", () => { //Appui sur Start, commencer le tirage
     $("#biggerbox").show();
@@ -81,7 +79,7 @@ start_btn.addEventListener("click", () => { //Appui sur Start, commencer le tira
         draw[i].style.display = "none";
     };
     $('#start_btn, #prev_btn, #validate_btn, .description').hide()
-    currentBox.style.display = "block";
+    currentBox.style.display = "flex";
 
 });
 
@@ -89,7 +87,7 @@ $(document).on("click", "#next_btn", () => { //Passer à la question suivante
     let error = false;
     for (let i = 0; i < prerequisites[currentBox.id].length; i++){ // Verifie les prérequis associé à chaque étape
         if (prerequisites[currentBox.id][i].condition() === false){
-            error = true
+            error = true;
             alert(prerequisites[currentBox.id][i].errorMessage)
             break;
         }
@@ -165,11 +163,11 @@ function removeContent(removeFrom, classToBeRemoved){//remove all content of a D
 
 function makeInputBoxes(n){ // Crée les input boxes selon le nombre de participants 
     for (let i = 1; i <= n; i++) {
-        fillParticipantsName.insertAdjacentHTML('beforeend',`<span>Participant ${i} </span><input class = "participantName_input" id="participant${i}" name="participant"  type="text" /><br>`);    
+        fillParticipantsName.insertAdjacentHTML('beforeend',`<input class = "participantName_input" id="participant${i}" name="participant"  type="text" placeholder= "Participant ${i}"/><br>`);    
     };
 };
 
-function makeNameBoxes(list, elem) {// Faire les boites avec les noms de participants saisis par l'utilisateur
+function makeNameBoxes(list, elem) {// Faire les boites avec les noms de participants
     for (let j = 0; j < elem.length; j++) {
         for (let i = 0; i < list.length; i++) {
             elem[j].insertAdjacentHTML('beforeend',`<div class="participantImage" >${list[i]} </div>`)
@@ -180,7 +178,7 @@ function makeNameBoxes(list, elem) {// Faire les boites avec les noms de partici
 function initParticipantBoxes(elem) {// Initialise le boxes des participants et l'affichage des règles
     selectedParticipants.reciprocal, selectedParticipants.unreciprocal  = [];
     elem.removeClass("selected")
-    $(".warning").hide()
+    // $(".warning").hide()
     currentRule.innerHTML = "";
 };
 
@@ -197,20 +195,23 @@ function getListOfParticipants(list) {// Récupère la liste des participants en
 /**********/
 /* RULES  */
 /**********/
+
+
+$(".ruleValidation").hide();
+$("#results").hide();
+
 $(document).on("click", '.participantImage',function(){// Sélectionner des participants
     let selectedParticipants = selectItem(this)
     let ruleType = $(this).parents(".rules")[0].id
-
     displayCurrentRule(this, $(this).parents('.rules').find('.selected').length, selectedParticipants[ruleType])
 
 });
-
 
 $(document).on("click", ".ruleValidation", function(){ //Validation de la règle en cours
     let nRules = defineRuleNumber(this) // Le numéro de la règle
     let ruleType = $(this).parents(".rules")[0].id // récupère l'info du type de règle  
     let doublon = isThisRuleExisting(ruleType);
-    $(this).parents('.rules').find('.warning').hide()
+    // $(this).parents('.rules').find('.warning').hide()
 
     if (doublon === true){
         alert("Cette règle existe déjà.")
@@ -272,10 +273,10 @@ function selectItem(elem){ // Sélectionner la bulle d'un participant
     
     if (selected.length <= 2){
         if(selected.length === 2 && elem.classList.contains("selected") === false){
-            $(elem).parents('.rules').find('.warning').show()
+            // $(elem).parents('.rules').find('.warning').show()
         }
         else {
-            $(elem).parents('.rules').find('.warning').hide();
+            // $(elem).parents('.rules').find('.warning').hide();
             elem.classList.toggle("selected")
             if (elem.classList.contains("selected")){
                 selectedParticipants[ruleType].push(elem.textContent)
@@ -287,23 +288,24 @@ function selectItem(elem){ // Sélectionner la bulle d'un participant
     return selectedParticipants;
 };
 
-function displayCurrentRule(selectedItem, n_images, selectedParticipants) { //Afficher la règle en cours de création
- 
-    let ruleText = document.createElement("span")
-    ruleText.classList.add("ruleText")
-    ruleText.innerHTML = rulePhrasing($(selectedItem).parents(".rules").attr("id"), selectedParticipants);
+function displayCurrentRule(selectedItem, nbParticipantSelected, selectedParticipants) { //Afficher la règle en cours de création
+    let currentRuleNode = $(selectedItem).parents(".rules").find(".currentRule") 
+    if (nbParticipantSelected === 1){ // write the first name selected 
+        currentRuleNode.find('.participant1')[0].innerHTML = `${selectedParticipants[0]}`;
+        currentRuleNode.find('.participant2')[0].innerHTML = ``;
+        $(selectedItem).parents(".rules").find(".ruleValidation").hide()
+    }
+    else if (nbParticipantSelected === 2){ // write the rest of the rule
+        currentRuleNode.find('.participant1')[0].innerHTML = `${selectedParticipants[0]}`;
+        currentRuleNode.find('.participant2')[0].innerHTML = `${selectedParticipants[1]}`;
+        currentRuleNode.find(".ruleValidation").show()
+    }
+    else {
+        currentRuleNode.find('.participant1')[0].innerHTML = ``;
+        currentRuleNode.find('.participant2')[0].innerHTML = ``;
+        $(selectedItem).parents(".rules").find(".ruleValidation").hide()
 
-    let currentRuleNode = $(selectedItem).parents(".rules").find(".currentRule")[0]    
-    currentRuleNode.innerHTML = ``
-    if (n_images === 1){ // write the first name selected 
-        currentRuleNode.insertAdjacentHTML('beforeend', `<strong>${selectedParticipants[0]}</strong>`);
-    }
-    else if (n_images === 2){ // write the rest of the rule
-        currentRuleNode.append(ruleText);
-        validateButton.setAttribute("form", currentRuleNode.id)
-        currentRuleNode.append(validateButton.cloneNode());
-    }
-    else {currentRuleNode.innerHTML = ``;} // Clear the rule
+        } // Clear the rule
 
 };
 
@@ -317,7 +319,19 @@ function createRuleToSave(elem, nRules) { //crée le HTML de la règle à sauveg
     let ruleToBeSaved = document.createElement("form");
     ruleToBeSaved.classList.add("savedRules");
     ruleToBeSaved.setAttribute("id",`rule${nRules}`)
-    ruleToBeSaved.innerHTML = $(elem).parents(".rules").find(".ruleText").text();
+    ruleToBeSaved.innerHTML = rulePhrasing(
+        $(elem).parents(".rules")[0].id, 
+        [$(elem)
+            .parents(".rules")
+            .find(".currentRule")
+            .find(".participant1")
+            .text(),
+        $(elem)
+            .parents(".rules")
+            .find(".currentRule")
+            .find(".participant2")
+            .text()
+        ]);
     return ruleToBeSaved;
 };
 
@@ -332,25 +346,19 @@ function rulePhrasing(type, participants) {//Select the appropriate rule dependi
     return ruleText ;
 };
 
-function createImageButton(src) { 
+
+function createDeleteButton(ruleName) { 
     let button = document.createElement("img");
-    button.setAttribute("src",src);
-    button.classList.add("saveOrDeleteButtons")
+    button.setAttribute("src","./Images/redCross.png");
+    button.setAttribute("alt", ruleName);
+    button.classList.add("saveOrDeleteButtons", "deleteButton");
     return button;
 }
 
-function createDeleteButton(ruleName) { 
-    let deleteButton = createImageButton("./Images/redCross.png");
-    deleteButton.classList.add("deleteButton");
-    deleteButton.setAttribute("alt", ruleName)
-    return deleteButton;
-}
+/*********************/
+/* VALIDATION & DRAW */
+/*********************/
 
-/********************/
-/* VALIDATION & DRAW*/
-/********************/
-console.log(participantsList)
-console.log(rules)
 
 $(document).on("click", "#validate_btn", () => {
 
@@ -361,9 +369,8 @@ $(document).on("click", "#validate_btn", () => {
         let rule = r.participants.map(element => {return element.trim();})
         rulesList[type].push(rule)
       }  
-    } 
-    
-    
+    } ;
+
     /** GET ALL AVAILABLE OPTIONS FOR EACH PARTICIPANT */
     
     //Get all the options for each participant based on the participants list and the rules
@@ -379,7 +386,7 @@ $(document).on("click", "#validate_btn", () => {
               if (r[0] === p) {available_options = removeTheOtherParticipant(r, p, available_options)}        }
         return available_options
     })
-    
+
     /** EXECUTE THE DRAW */   
     let n_loop = 0
     
@@ -397,8 +404,6 @@ $(document).on("click", "#validate_btn", () => {
           participantsPairs = []
       loopOverParticipants: while (Object.keys(optionsPerParticipant).length > 0){ // Loop until no more participants
         // get the participant with the least options
-        console.log(optionsPerParticipant, ppWithTheLessOptions, minNbOptions)
-
         Object.values(optionsPerParticipant).map((elem, index) => {
           if (elem.length <= minNbOptions){
             minNbOptions = elem.length // Minimum of options across participants
@@ -407,8 +412,10 @@ $(document).on("click", "#validate_btn", () => {
         })
         // Break loop if at least one participant has no option
         if (minNbOptions === 0){
-            alert(`Tirage au sort impossible,${ppWithTheLessOptions} ne peut faire de cadeau à personne.`)
-            break loopOverParticipants;
+            alert(`Tirage au sort impossible, ${ppWithTheLessOptions} ne peut faire de cadeau à personne.`)
+            //TODO: Offer to restart or go back to the rules
+
+      break loopOverParticipants;
         } else {     
           //Randomly assign one of the option to the participant with the least 
           assignedPp = optionsPerParticipant[ppWithTheLessOptions][Math.floor(Math.random() * minNbOptions)]
@@ -425,7 +432,8 @@ $(document).on("click", "#validate_btn", () => {
     
       // if we draw everybody (ie, there is the same number of pairs as the number of participants), the draw is done
       if (participantsPairs.length === participantsList.length){
-        alert("Success !" + participantsPairs)
+        displayResults(participantsPairs)
+        // alert("Success !" + participantsPairs)
         break;
       }
       n_loop++;
@@ -433,6 +441,7 @@ $(document).on("click", "#validate_btn", () => {
     
     if (n_loop === nbMaxLoop){
       alert("Le tirage au sort n'a pas pu aboutir, l'algorithme ne trouve pas de solution :(")
+      //TODO: Offer to restart or go back to the rules
     }
     
     
@@ -442,8 +451,29 @@ $(document).on("click", "#validate_btn", () => {
       available_options = available_options.filter(value => value !== other_p[0])
       return available_options
     }
+
+    $('#buttons').hide()
+
 })
 
+function displayResults(participantsPairs){
+    for(let pair of participantsPairs){
+        $("#resultList").append('<strong>'+pair[0]+"</strong> fait un cadeau à <strong>"+pair[1] + "</strong><br>"); 
+    }
+    $("#results").show();
+    $(".draw").hide()
+    
+
+
+}
+
+$(document).on("click", "#restart_btn", () => {
+    window.location.reload();
+})
+
+//TODO: Add waiting item
+//TODO: Add status/progress bar
+//TODO: Share button
 
 
 
