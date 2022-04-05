@@ -11,71 +11,104 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="style.css">
-        <link rel="shortcut icon" href="Images\icon.png">
+        <link rel="shortcut icon" href="img\icon.png">
         <script src="jquery-3.6.0.js"></script>
-    </head>
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>   
+     </head>
     <body>
         <h1>( > Secret Santa )</h1>
-        <p class = "description">Description du tirage au sort</p>
-        <button class= "btn" id = "start_btn">C'est parti !</button>
         <div id="biggerbox">
             <section class = "draw" id="nbParticipants">
-                <h3 class="instructions">Combien de personnes participent ?</p>
-                <input type="number" min = 3 name="nbPp" id="n">
-
+                <h3 class="instructions title">Combien de participants ?</h3>
+                <input class="main" type="number" min = 3 name="nbPp" id="n">
+                <button class="btn next_btn" id = "next_btn"><img src="img/angle-circle-right.svg" alt="Suivant"></button>
             </section>
             <section class = "draw" id="participantsName">
-                <h3>Entrez le nom des participants</h3>
-                <div id = "fillParticipantsName">
+                <h3 class="instructions title">Indiquez le nom des participants</h3>
+                <div class="main" id = "fillParticipantsName">
                 </div>
-                <br>
+                <button class="btn prev_btn" id = "prev_btn"><img src="img/angle-circle-left.svg" alt="Précédent"></button>
+                <button class="btn next_btn" id = "next_btn"><img src="img/angle-circle-right.svg" alt="Suivant"></button>
             </section>
             <section class="draw" id="rules">
-                <div class = "rules" id="reciprocal">
-                    <h3>Règles réciproques</h3>
-                    <p id = reciprocal_instructions> Sélectionnez les partipants qui ne peuvent pas se faire de cadeaux.</p>
-                    <div class = "participantImages_block">                      
-                    </div>
-                    <div id="currentRule_reciprocal" class = "currentRule">
+                <h3 class="instructions title">Règles</h3>
+                <div class="main">
+                    <div class="new-rule-container">
                         <div class="ruleText">
-                            <strong class="participant1 reciprocal"> </strong> 
-                            et
-                            <strong class="participant2 reciprocal"> </strong> 
-                            ne peuvent pas se faire de cadeau.                                                     
+                            <select id="participant1-select" class="participant1 select"> 
+                                <option class = "instructions" selected>...</option>    
+                            </select> 
+                            <div>ne fait pas de cadeau à</div>
+                            <select id="participant2-select" class="participant2 select"> 
+                                <option class = "instructions" selected>...</option>    
+                            </select> 
                         </div>
-                        <img src="/Images/greenTick.png" alt="ruleValidation" class="saveOrDeleteButtons ruleValidation" form="currentRule_reciprocal">
+                        <div class="reciprocal-rule-container">
+                            <div class="reciprocal-rule">
+                                <span id="participant1-reciprocal"></span>
+                                <span>ne fait pas de cadeau à</span>
+                                <span id="participant2-reciprocal"></span>
+                            </div>
+                        </div>
+                        <div id="reciprocal-container">
+                            <label for="reciprocal"><i class="fi fi-sr-exchange"></i> Réciproque </label>
+                            <input type="checkbox" name="reciprocal" id="reciprocal">    
+                        </div>
+                        <button class="btn" id="cancel-rule"><img src="img/cross.svg" alt="Annuler la règle"></button>
+                        <button class="btn" id="add-rule"><img src="img/check.svg" alt="Valider la règle"></button>
+                    </div>
+                    <div class="rules-list-container">
+                        <ul id="rules-list"> 
+                        </ul>
+                        <button class="btn" id="create-rule"><img src="img/add.svg" alt="Créer une nouvelle règle"></button>
+                    </div>
+                </div>
+                <button class="btn prev_btn" id = "prev_btn"><img src="img/angle-circle-left.svg" alt="Précédent"></button>
+                <button class="btn validate_btn" id = "validate_btn" href="test-draw.html" >Lancer le tirage !</button>
 
-                    </div>
-                </div>
-                <div class = "rules" id="unreciprocal">
-                    <h3>Règles non réciproques</h3>
-                    <p id = unreciprocal_instructions> Sélectionnez les partipants qui ne peuvent pas se faire de cadeau.</p>
-                    <div class = "participantImages_block">
-                    </div>
-                    <div id="currentRule_unreciprocal" class = "currentRule">
-                        <div class="ruleText">
-                            <div class="participant1 unreciprocal"> </div> 
-                            ne peut pas faire de cadeau à 
-                            <div class="participant2 unreciprocal"> </div>.                 
-                        </div>
-                        <img src="/Images/greenTick.png" alt="ruleValidation" class="saveOrDeleteButtons ruleValidation" form="currentRule_unreciprocal">
-                    </div>
-                </div>
-            </section>            
-            <section id="results">
-                <!-- <h3>Résultats</h3> -->
-                <div id="resultList"></div>
-                <button class="btn" id="restart_btn">Recommencer</button>
-                <button class="btn" id="share_btn">Partager</button>
             </section>
-            <div id = buttons>
-                <button class="btn" id = "prev_btn">Précédent</button>
-                <button class="btn" id = "next_btn">Suivant</button>
-                <button class="btn" id = "validate_btn" href="test-draw.html">Valider</button>
-            </div>
+            <section class="draw" id="loading">
+                <div class="snippet main">
+                    <div class="loader-container">
+                      <div class="dot-windmill"></div>
+                      <p>Veuillez patienter <br> Tirage en cours</p>
+                    </div>
+                </div>
+            </section>
+            <section id="results" class="draw">
+                <h3 class = title>Résultats</h3>
+                <!-- TODO: Add fireworks https://codepen.io/YusukeNakaya/pen/dyYdLvw -->
+                
+                <div class = "main">
+                    <ul id="resultList"></ul>
+                </div>
+                <div class = results-btns>
+                    <button class="btn share_btn" id="share_btn"><i class="fi fi-sr-share"></i>Partager</button>
+                    <button class="btn restart_btn" id="restart_btn"><i class="fi fi-sr-rotate-right modify-rule"></i>Recommencer</button>
+                </div>
+                <p class="shared-result"></p>
 
+                <!-- todo: share https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share -->
+                
+            </section>
+            <section id="error" class = draw>
+                <img class="sad-face title" src="img/sad-face-in-rounded-square.png" alt="erreur">
+                <div class="error-message main">
+                    Nous n'avons pas trouvé de solution. <br>
+                    Essayez d'enlever des règles !
+                </div>
+                <div class = error-btns>
+                    <button class="btn backtorules_btn" id="backtorules_btn"><i class="fi fi-sr-pencil modify-rule"></i>Modifier les règles</button>
+                    <button class="btn restart_btn" id="restart_btn"><i class="fi fi-sr-rotate-right modify-rule"></i>Recommencer</button>
+                    </div>
+            </section>
         </div>
-
+        <footer>
+            <div>
+                (c) Designed & Created by Lison Fanuel - 2022 <br>
+                <a href="https://www.flaticon.com/free-icons/sad" title="sad icons">Sad icons created by Freepik - Flaticon</a>    
+            </div>
+        </footer>
          <script type = "module" src="script.js" async defer></script>
     </body>
 </html>

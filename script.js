@@ -1,8 +1,7 @@
 /* DEFINITION DES VARIABLES PARTAGEES DANS LE DOCUMENT */
 const draw = document.getElementsByClassName("draw");
 const currentRule = document.getElementsByClassName("currentRule");
-const optionsPerParticipant = {}, 
-    nbMaxLoop = 10 // Number of times the loop will iterate without success
+const  optionsPerParticipant = {}
 
 let currentBox = draw[0];
 let selectedParticipants = {reciprocal: [], unreciprocal: [] };
@@ -10,19 +9,8 @@ var participantsList = [];
 
 
 /* INITIALISATION DES REGLES */ 
-const rules = {reciprocal: [], unreciprocal: [] };
-
-class Rule {
-    constructor(type, formName, participants) {
-        this.type = type; //type de règle, réciproque ou non
-        this.form = formName; //nom du form associé
-        this.participants = participants; //liste des participants impliqués dans la règle
-        this.ruleText = rulePhrasing(type, participants);
-
-    }
-};
-
-
+// const rules = {reciprocal: [], unreciprocal: [] };
+const rules = []
 
 /***************************/
 /* NAVIGATE ACROSS THE APP */
@@ -67,21 +55,18 @@ prerequisites
                 return condition}
         }},
         `Un participant apparait 2 fois, veuillez supprimer ou renommer une des deux occurences.`));
+//TODO: Add info on which participant appears twice
 
 /***************************/
 /* NAVIGATE ACROSS THE APP */
 /***************************/
-$("#biggerbox").hide();
 
-start_btn.addEventListener("click", () => { //Appui sur Start, commencer le tirage
-    $("#biggerbox").show();
-    for (let i =0; i < draw.length; i++){
-        draw[i].style.display = "none";
-    };
-    $('#start_btn, #prev_btn, #validate_btn, .description').hide()
-    currentBox.style.display = "flex";
+// Afficer le premier écran et cacher les autres
+for (let i =0; i < draw.length; i++){
+    draw[i].style.display = "none";
+};
+currentBox.style.display = "grid";
 
-});
 
 $(document).on("click", "#next_btn", () => { //Passer à la question suivante
     let error = false;
@@ -100,9 +85,10 @@ $(document).on("click", "#next_btn", () => { //Passer à la question suivante
                 break; 
             case "participantsName":
                 participantsList = getListOfParticipants(document.getElementsByName("participant"));
-                makeNameBoxes(  participantsList = participantsList, 
-                                document.getElementsByClassName("participantImages_block"))
-
+                participantsToSelect(  participantsList = participantsList, 
+                                document.getElementsByClassName("select"))
+                $(".new-rule-container, .reciprocal-rule").hide();
+                $(".rules-list-container").show();
                 break;
             default : 
                 break;
@@ -110,7 +96,6 @@ $(document).on("click", "#next_btn", () => { //Passer à la question suivante
         $(currentBox).hide(); 
         $(currentBox.nextElementSibling).show();
         currentBox = currentBox.nextElementSibling ; 
-        hideOrShowPrevNextButtons(currentBox);
     }
 });
 
@@ -120,37 +105,16 @@ $(document).on("click", "#prev_btn", () => {//Retour à la question précédente
     switch(currentBox.id){
         case "participantsName":
             $("#fillParticipantsName").children().not(".instructions").remove();
-            initParticipantBoxes($('.participantImage'));
             break;
         case "rules":
-            initParticipantBoxes($('.participantImage'));
-            removeContent($(".participantsBlock"), $('.participantImage'))
-            removeContent($(".rules"), $(".savedRule"))
+            removeContent($(".select"), $("option"))
         default:
             
             break;
     }
     currentBox = currentBox.previousElementSibling ;
-    hideOrShowPrevNextButtons(currentBox);
 });
 
-
-function hideOrShowPrevNextButtons(currentBox) { //Montre ou cache les boutons suivant et précédent selon leur pertinence
-
-    if ($('.draw:last')[0] === currentBox) { //Cacher le bouton suivant cette boite est la dernière
-        $("#next_btn").hide();
-        $("#validate_btn").show();
-    }
-    else if ($('.draw:first')[0] === currentBox){//Cacher le bouton Précédent si c'est la premiere box
-        $("#prev_btn").hide();
-        $("#validate_btn").hide();
-    }
-    else {
-        $("#prev_btn").show();
-        $("#next_btn").show();
-        $("#validate_btn").hide();
-    }
-};
 
 function removeContent(removeFrom, classToBeRemoved){//remove all content of a DOM element except for the instructions
     for (let e in removeFrom){$(e).find(classToBeRemoved).not(".instructions").remove()};
@@ -167,21 +131,6 @@ function makeInputBoxes(n){ // Crée les input boxes selon le nombre de particip
     };
 };
 
-function makeNameBoxes(list, elem) {// Faire les boites avec les noms de participants
-    for (let j = 0; j < elem.length; j++) {
-        for (let i = 0; i < list.length; i++) {
-            elem[j].insertAdjacentHTML('beforeend',`<div class="participantImage" >${list[i]} </div>`)
-        }
-    }
-};
-
-function initParticipantBoxes(elem) {// Initialise le boxes des participants et l'affichage des règles
-    selectedParticipants.reciprocal, selectedParticipants.unreciprocal  = [];
-    elem.removeClass("selected")
-    // $(".warning").hide()
-    currentRule.innerHTML = "";
-};
-
 function getListOfParticipants(list) {// Récupère la liste des participants en format Array à partir d'un objet
     let participantsList = list;
     let participantsNameArray = [];
@@ -196,283 +145,341 @@ function getListOfParticipants(list) {// Récupère la liste des participants en
 /* RULES  */
 /**********/
 
-
-$(".ruleValidation").hide();
 $("#results").hide();
+$(".new-rule-container, .reciprocal-rule").hide();
 
-$(document).on("click", '.participantImage',function(){// Sélectionner des participants
-    let selectedParticipants = selectItem(this)
-    let ruleType = $(this).parents(".rules")[0].id
-    displayCurrentRule(this, $(this).parents('.rules').find('.selected').length, selectedParticipants[ruleType])
 
-});
+//Open "Add a new rule" window and reset the default values
+$(document).on("click", "#create-rule", () => {
+    openNewRuleWindow();
+    resetNewRuleWindow();
+})
 
-$(document).on("click", ".ruleValidation", function(){ //Validation de la règle en cours
-    let nRules = defineRuleNumber(this) // Le numéro de la règle
-    let ruleType = $(this).parents(".rules")[0].id // récupère l'info du type de règle  
-    let doublon = isThisRuleExisting(ruleType);
-    // $(this).parents('.rules').find('.warning').hide()
-
-    if (doublon === true){
-        alert("Cette règle existe déjà.")
-    }
-    else {
-        let r = new Rule(ruleType, `rule${nRules}`, selectedParticipants[ruleType]) // crée une nouvelle règle
-        rules[ruleType].push(r) //Ajoute la nouvelle règle à l'ensemble des règles
-
-        // Affichage de la règle et du bouton supprimer
-        $(this).parents(".rules").children(".rulesBlock").children("ol").append("<li class = 'savedRule'>").children("li:last").append(
-                                                                createRuleToSave(this, nRules),  
-                                                                createDeleteButton(`rule${nRules}`))
-    }
-    $(this).parents(".rules").find(".participantImage").removeClass("selected") //réinitialisation des boxes des participants
-    selectedParticipants[ruleType] = []                                         //réinitialisation de la liste de sélection
-    displayCurrentRule(this, $(this).parents('.rules').find('.selected').length, selectedParticipants[ruleType]) //réinitialisation de la règle en cours
-});
-
-$(document).on("click", ".deleteButton", function(){ //Appui sur delete
-    let ruleType = $(this).parents(".rules")[0].id
-    let elemId = $(this).attr("alt")
-
-    rules[ruleType] = rules[ruleType].filter(function(value, index, array){ //remove the rule item from the array
-        return value.form !== elemId
+//Participants name's in the list
+// Get names from user inputs
+$(document).ready(function() {
+    $('#reciprocal, #participant1-select, #participant2-select').change(function() {
+        // Add participants names in the reciprocal rule
+        document.getElementById("participant1-reciprocal")
+            .innerHTML = `<strong>${$('#participant2-select').find(":selected").text()}</strong>`;
+        document.getElementById("participant2-reciprocal")
+            .innerHTML = `<strong>${$('#participant1-select').find(":selected").text()}</strong>`;
     })
-    $(this).parents(".rules").find(`#${elemId}`).parent("li").remove() //remove the rule and the associated remove button
+});
 
+// Remove participant selected as Participant1 from participant2 available options
+$('#participant1-select').change(function() {
+    $(".select").not(this).find(`option`).show();
+    $(".select").not(this).find(`#${$(this).find(":selected").text()}`).hide()
+    //Go back to "..." if participant1 is the same as participant2
+    if (this.value === document.getElementById('participant2-select').value){
+        document.getElementById('participant2-select').value="...";
+    }
+});
+
+// Toggle reciprocal rule depending on reciprocal status
+$(document).ready(function() {
+    //set initial state.
+    $('#reciprocal').change(function() {
+        if ($(this).is(':checked')){
+            $(".reciprocal-rule").show();
+        } else {$(".reciprocal-rule").hide();}      
+    });
+});
+
+// Save 
+$(document).on("click","#add-rule", () => {
+    let participant1 = document.getElementById('participant1-select').value, 
+        participant2 = document.getElementById('participant2-select').value
+    if (participant1 === "..." 
+        || participant2 === "..." ){
+        alert("Sélectionnez deux participants avant de valider");
+    } 
+    if(thisRuleExists(participant1, participant2)){
+        //TODO: Do something here
+        alert("reorder");
+        goBackToRulesList();
+    }
+    else {
+        //If the user is changing a rule 
+        if(document.getElementById('toModify')){
+            //get the node of the rule to be modifed
+            let elemToModify = document.getElementById('toModify');
+            //get the 2 participants to be modified
+            let participant1ToModify = elemToModify.querySelector(".participant1").innerHTML, 
+                participant2ToModify = elemToModify.querySelector(".participant2").innerHTML
+            //remove their rule from the Rules Array
+            removeRuleFromArray(participant1ToModify, participant2ToModify);
+            //Save the new rule in the rule Array
+            saveTheRule(participant1, participant2);
+            // Replace their names by the new participants in the rules list
+            elemToModify.querySelector(".participant1").innerHTML = 
+                document.getElementById('participant1-select').value
+            elemToModify.querySelector(".participant2").innerHTML = 
+                document.getElementById('participant2-select').value
+            //remove the 'toModify Id'
+            elemToModify.removeAttribute('id')
+            goBackToRulesList();
+        }
+        //else, it is a new rule so save it
+        else {
+            saveTheRule(participant1, participant2);
+            writeTheRule(participant1, participant2);
+        }
+        // Save the reciprocal if required
+        if (document.getElementById("reciprocal").checked === true){
+            if(thisRuleExists(participant2, participant1)){
+            } else {
+                saveTheRule(participant2, participant1);
+                writeTheRule(participant2, participant1);    
+            }  
+        }
+        goBackToRulesList();
+        resetNewRuleWindow();
+    }
+})
+
+//Cancel 
+$(document).on("click","#cancel-rule", () => {
+    if(document.getElementById('toModify')){
+        document.getElementById('toModify').removeAttribute('id');
+    }
+    goBackToRulesList();
+    resetNewRuleWindow();
+})
+
+
+// Remove a rule
+$(document).on("click",".remove-rule", function() {
+    removeRuleFromArray($(this).parents("li").find(".participant1").text(), 
+                        $(this).parents("li").find(".participant2").text());
+    $(this).parents("li").remove();
+});
+
+// Modify a rule
+$(document).on("click",".modify-rule", function() {
+    //add 'toModify id to the HTML element to modify
+    $(this).parents("li").attr('id', 'toModify');
+    // pre-set the dropdown buttons with the participants names
+    document.getElementById('participant1-select').value 
+        = $(this).parents("li").find(".participant1").text()
+    document.getElementById('participant2-select').value 
+        = $(this).parents("li").find(".participant2").text()
+    
+    openNewRuleWindow();
 
 });
 
 
+function openNewRuleWindow() {
+    $(".new-rule-container").show();
+    $(".rules-list-container").hide();
+};
 
-function isThisRuleExisting(ruleType) {//Vérifie que la règle n'existe pas
-    let existing = false;
+function writeTheRule(participant1, participant2) {
+    const icons = `<i class="fi fi-sr-trash remove-rule"></i><i class="fi fi-sr-pencil modify-rule"></i>`;
+    let rulePhrasing = `<li>${icons}<span class="participant1">${participant1}</span> ne peut pas faire de cadeau à <span class="participant2">${participant2}</span>.</li>`;
+    document.getElementById("rules-list").insertAdjacentHTML('beforeend', rulePhrasing);
+};
 
-    if (ruleType === "reciprocal") {
-        for (let i in rules["reciprocal"]) {
-            if (rules["reciprocal"][i].participants.includes(selectedParticipants.reciprocal[0])
-                && rules["reciprocal"][i].participants.includes(selectedParticipants.reciprocal[1])) {
-                existing = true;
-            }
+function removeRuleFromArray(p1, p2) {
+    for (var i = 0; i < rules.length; i++) {
+        if (rules[i][0] === p1
+            && rules[i][1] === p2) {
+            rules.splice(i, 1);
+            i--;
         }
     }
-    else if (ruleType === "unreciprocal") {
-        for (let i in rules["unreciprocal"]) {
-            if (rules["unreciprocal"][i].participants[0] === selectedParticipants.unreciprocal[0]
-                && rules["unreciprocal"][i].participants[1] === selectedParticipants.unreciprocal[1]) {
-                existing = true;
-            }
-        }
-    }
-    return existing;
-};
-
-function selectItem(elem){ // Sélectionner la bulle d'un participant
-
-    let ruleType = $(elem).parents('.rules')[0].id
-    let selected = $(elem).parents('.rules').find('.selected')
-    
-    if (selected.length <= 2){
-        if(selected.length === 2 && elem.classList.contains("selected") === false){
-            // $(elem).parents('.rules').find('.warning').show()
-        }
-        else {
-            // $(elem).parents('.rules').find('.warning').hide();
-            elem.classList.toggle("selected")
-            if (elem.classList.contains("selected")){
-                selectedParticipants[ruleType].push(elem.textContent)
-            }
-            else {
-                selectedParticipants[ruleType].splice(selectedParticipants[ruleType].indexOf(elem.textContent), 1) }
-        }
-    }
-    return selectedParticipants;
-};
-
-function displayCurrentRule(selectedItem, nbParticipantSelected, selectedParticipants) { //Afficher la règle en cours de création
-    let currentRuleNode = $(selectedItem).parents(".rules").find(".currentRule") 
-    if (nbParticipantSelected === 1){ // write the first name selected 
-        currentRuleNode.find('.participant1')[0].innerHTML = `${selectedParticipants[0]}`;
-        currentRuleNode.find('.participant2')[0].innerHTML = ``;
-        $(selectedItem).parents(".rules").find(".ruleValidation").hide()
-    }
-    else if (nbParticipantSelected === 2){ // write the rest of the rule
-        currentRuleNode.find('.participant1')[0].innerHTML = `${selectedParticipants[0]}`;
-        currentRuleNode.find('.participant2')[0].innerHTML = `${selectedParticipants[1]}`;
-        currentRuleNode.find(".ruleValidation").show()
-    }
-    else {
-        currentRuleNode.find('.participant1')[0].innerHTML = ``;
-        currentRuleNode.find('.participant2')[0].innerHTML = ``;
-        $(selectedItem).parents(".rules").find(".ruleValidation").hide()
-
-        } // Clear the rule
-
-};
-
-function defineRuleNumber(elem) { //Définit le numéro de la règle
-    let n = $(elem).parents(".rules").find(".savedRules").length;
-    while($(elem).parents(".rules").find(`#rule${n}`).length){n+=1}
-    return n
-};
-
-function createRuleToSave(elem, nRules) { //crée le HTML de la règle à sauvegarder
-    let ruleToBeSaved = document.createElement("form");
-    ruleToBeSaved.classList.add("savedRules");
-    ruleToBeSaved.setAttribute("id",`rule${nRules}`)
-    ruleToBeSaved.innerHTML = rulePhrasing(
-        $(elem).parents(".rules")[0].id, 
-        [$(elem)
-            .parents(".rules")
-            .find(".currentRule")
-            .find(".participant1")
-            .text(),
-        $(elem)
-            .parents(".rules")
-            .find(".currentRule")
-            .find(".participant2")
-            .text()
-        ]);
-    return ruleToBeSaved;
-};
-
-function rulePhrasing(type, participants) {//Select the appropriate rule depending on the type of rule (reciprocal or not)
-    let ruleText = "";
-    if (type === "reciprocal") { 
-        ruleText = `<strong>${participants[0]}</strong> et <strong>${participants[1]}</strong> ne se font pas de cadeau.`;
-    }
-    else if (type === "unreciprocal") {
-        ruleText = `<strong>${participants[0]}</strong> ne fait pas de cadeau à <strong>${participants[1]}</strong>.`;
-    }
-    return ruleText ;
-};
-
-
-function createDeleteButton(ruleName) { 
-    let button = document.createElement("img");
-    button.setAttribute("src","./Images/redCross.png");
-    button.setAttribute("alt", ruleName);
-    button.classList.add("saveOrDeleteButtons", "deleteButton");
-    return button;
 }
 
+function saveTheRule(participant1, participant2){
+    rules.push([participant1, participant2]);
+};
+
+function resetNewRuleWindow() {
+    $(".reciprocal-rule").hide();
+    document.getElementById("reciprocal").checked = false;
+    document.getElementById('participant1-select').value = "...";
+    document.getElementById('participant2-select').value = "...";
+};
+
+function thisRuleExists(participant1, participant2) {//Vérifie que la règle n'existe pas
+    let existing = false;
+        for (let i in rules) {
+            if (rules[i][0] === participant1
+                && rules[i][1] === participant2) {
+                existing = true;
+            }
+        }
+        return existing;
+};
+
+function participantsToSelect(list, elem) {// Create the list of the participnats in the dropdown buttons
+    for (let j = 0; j < elem.length; j++) {
+        for (let i = 0; i < list.length; i++) {
+            elem[j].insertAdjacentHTML('beforeend',`<option id='${list[i]}'>${list[i]}</option>`)
+        }
+    }
+};
+    
 /*********************/
 /* VALIDATION & DRAW */
 /*********************/
-
-
 $(document).on("click", "#validate_btn", () => {
-
-    let rulesList = {reciprocal: [], unreciprocal: []}
-    //put the rules content to lists and remove the spaces from the strings 
-    for (let type in rules){
-      for (let r of rules[type]) { //put the rules content to a list and remove 
-        let rule = r.participants.map(element => {return element.trim();})
-        rulesList[type].push(rule)
-      }  
-    } ;
-
-    /** GET ALL AVAILABLE OPTIONS FOR EACH PARTICIPANT */
+    $(".draw").hide();
+    $("#loading").show();
     
+    /** GET ALL AVAILABLE OPTIONS FOR EACH PARTICIPANT */    
     //Get all the options for each participant based on the participants list and the rules
-    const options_per_participant = participantsList.map(function(p, index, options) {
-        // trim the options based on the rules
-        var available_options = options
-        available_options = available_options.filter(value => value !== p) //remove the participant itself from the options
-            // for reciprocal rules
-            for (let r of rulesList.reciprocal){
-              if (r.includes(p)) {available_options = removeTheOtherParticipant(r, p, available_options)}        } 
-            // for unreciprocal rules
-            for (let r of rulesList.unreciprocal){
-              if (r[0] === p) {available_options = removeTheOtherParticipant(r, p, available_options)}        }
-        return available_options
-    })
-
+    const options_per_participant = getParticipantsOptions()
     /** EXECUTE THE DRAW */   
+    const nbMaxLoop = 10 // Number of times the loop will iterate without success
     let n_loop = 0
-    
+
     // Try drawing a certain amount (= nbMaxLoop) of times 
     while (n_loop<nbMaxLoop){
       // Make an object with participantName as key and its options as content
-      participantsList.forEach(
-        (participant, i) => optionsPerParticipant[participant] = options_per_participant[i]);
+        participantsList.forEach((participant, i) => 
+            optionsPerParticipant[participant] = options_per_participant[i]);
     
-    
-    // Initialise the draw variables at the beginning of the draw
-      let ppWithTheLessOptions = "", 
-          assignedPp = "",
-          minNbOptions = participantsList.length, 
-          participantsPairs = []
-      loopOverParticipants: while (Object.keys(optionsPerParticipant).length > 0){ // Loop until no more participants
-        // get the participant with the least options
-        Object.values(optionsPerParticipant).map((elem, index) => {
-          if (elem.length <= minNbOptions){
-            minNbOptions = elem.length // Minimum of options across participants
-            ppWithTheLessOptions = Object.keys(optionsPerParticipant)[index] //Name of the participant with the least options
-          }
-        })
-        // Break loop if at least one participant has no option
-        if (minNbOptions === 0){
-            alert(`Tirage au sort impossible, ${ppWithTheLessOptions} ne peut faire de cadeau à personne.`)
-            //TODO: Offer to restart or go back to the rules
+        // Initialise the draw variables at the beginning of the draw
+        let ppWithTheLessOptions = "", 
+            assignedPp = "",
+            minNbOptions = participantsList.length, 
+            participantsPairs = []
 
-      break loopOverParticipants;
-        } else {     
-          //Randomly assign one of the option to the participant with the least 
-          assignedPp = optionsPerParticipant[ppWithTheLessOptions][Math.floor(Math.random() * minNbOptions)]
-          participantsPairs.push([ppWithTheLessOptions, assignedPp])
-          
-          // Remove the assigned option from the other participants options' list
-          for(let p in optionsPerParticipant){
-            optionsPerParticipant[p] = optionsPerParticipant[p].filter(value => value !== assignedPp)
-          }
-          // Remove the participant with the least options from the list 
-          delete optionsPerParticipant[ppWithTheLessOptions]
+        // Loop until no more participants
+        loopOverParticipants: while (Object.keys(optionsPerParticipant).length > 0){ 
+            // get the participant with the least options
+            ({ minNbOptions, ppWithTheLessOptions } = getTheParticipantWithTheLessOptions(minNbOptions, ppWithTheLessOptions));
+            // Break loop if at least one participant has no option, else continue the draw
+            if (minNbOptions === 0){
+                displayErrorPage()
+                break loopOverParticipants;
+            } else {     
+                //Randomly assign one of the option to the participant with the least 
+                assignedPp = optionsPerParticipant[ppWithTheLessOptions][Math.floor(Math.random() * minNbOptions)]
+                participantsPairs.push([ppWithTheLessOptions, assignedPp])
+                // Remove the assigned option from the other participants options' list
+                for(let p in optionsPerParticipant){
+                    optionsPerParticipant[p] = optionsPerParticipant[p].filter(value => value !== assignedPp)
+                }
+                // Remove the participant with the least options from the list 
+                delete optionsPerParticipant[ppWithTheLessOptions]
+            }
         }
-      }
-    
-      // if we draw everybody (ie, there is the same number of pairs as the number of participants), the draw is done
-      if (participantsPairs.length === participantsList.length){
-        displayResults(participantsPairs)
-        // alert("Success !" + participantsPairs)
-        break;
-      }
-      n_loop++;
-    }
-    
-    if (n_loop === nbMaxLoop){
-      alert("Le tirage au sort n'a pas pu aboutir, l'algorithme ne trouve pas de solution :(")
-      //TODO: Offer to restart or go back to the rules
-    }
-    
-    
-    // FUNCTION: Remove the participant who is also part of the rule
-    function removeTheOtherParticipant(rule, participant, available_options) { 
-      let other_p = rule.filter(value => value !== participant)
-      available_options = available_options.filter(value => value !== other_p[0])
-      return available_options
-    }
+        
+        // if we draw everybody (ie, there is the same number of pairs as the number of participants), the draw is done
+        if (participantsPairs.length === participantsList.length){
+            displayResults(participantsPairs)
+            break;
+        }
 
-    $('#buttons').hide()
+        n_loop++;
+    }
+        
+    if (n_loop === nbMaxLoop){
+        displayErrorPage()
+    }
 
 })
 
-function displayResults(participantsPairs){
-    for(let pair of participantsPairs){
-        $("#resultList").append('<strong>'+pair[0]+"</strong> fait un cadeau à <strong>"+pair[1] + "</strong><br>"); 
-    }
-    $("#results").show();
-    $(".draw").hide()
-    
 
-
+function getTheParticipantWithTheLessOptions(minNbOptions, ppWithTheLessOptions) {
+    Object.values(optionsPerParticipant).map((elem, index) => {
+        if (elem.length <= minNbOptions) {
+            // Get the minimum of options across participants
+            minNbOptions = elem.length;
+            //Get the name of the participant with the least options
+            ppWithTheLessOptions = Object.keys(optionsPerParticipant)[index];
+        }
+    });
+    return { minNbOptions, ppWithTheLessOptions };
 }
 
+function getParticipantsOptions() {
+    //from the list of participant
+    return participantsList.map(function (p, _index, options) {
+        // set available_options to all participants (i.e., options)
+        var available_options = options;
+        //remove the participant itself from the options
+        available_options = available_options.filter(value => value !== p);
+        // go through each rule involving the participant and remove the other perticipant involved in the rule
+        for (let r of rules) {
+            if (r[0] === p) { available_options = removeTheOtherParticipant(r, p, available_options); }
+        }
+        return available_options;
+    });
+}
+
+
+// Remove the participant who is also part of the rule
+function removeTheOtherParticipant(rule, participant, available_options) { 
+    let other_p = rule.filter(value => value !== participant)
+    available_options = available_options.filter(value => value !== other_p[0])
+    return available_options
+};
+
+function goBackToRulesList() {
+    $(".new-rule-container").hide();
+    $(".rules-list-container").show();
+}
+
+
+function displayErrorPage(){
+    $(".draw").hide();
+    $("#error").show();
+
+}
+function displayResults(participantsPairs){
+    for(let pair of participantsPairs){
+        $("#resultList").append('<li><strong>'+pair[0]+"</strong> fait un cadeau à <strong>"+pair[1] + "</strong></li>"); 
+    }
+    $(".draw").hide();
+    $("#results").show();
+    // 
+};
+/*************/
+/** RESULTS **/
+/*************/
+
+// Restart = reload the page
 $(document).on("click", "#restart_btn", () => {
     window.location.reload();
 })
 
-//TODO: Add waiting item
-//TODO: Add status/progress bar
+// Go back to the rules
+$(document).on("click", ".backtorules_btn", function(){
+    $(".draw").hide();
+    $("#rules").show();
+    goBackToRulesList();
+});
+
+// Share
+const shareData = {
+    title: 'MySecretSanta',
+    text: 'Résultats du tirage au sort !',
+    url: ''
+    //TODO: How to share the results ? https://stackoverflow.com/questions/51896857/saving-the-html-files-current-state
+  }
+
+  const sharedBtn = document.querySelector('.share_btn');
+  const resultPara = document.querySelector('.shared-result');
+
+  // Share must be triggered by "user activation"
+  sharedBtn.addEventListener('click', async () => {
+    try {
+      await navigator.share(shareData)
+      //TODO: add can share
+      resultPara.textContent = 'MDN shared successfully'
+    } catch(err) {
+      resultPara.textContent = 'Error: ' + err
+      //TODO: Handle error
+    }
+  });
+
+
+
 //TODO: Share button
 
 
