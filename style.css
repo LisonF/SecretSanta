@@ -82,9 +82,10 @@ button,
     /* TODO: Resoudre le problème de taille qui change sur mobile quand on modifie les champs */
     display: flex;
     align-items: center;
-    width: 80vh;
+    width: 80%;
     max-width: 350px;
-    min-height: calc(80vh - 100px);
+    min-height: fit-content;
+    /* height: calc(80vh - 100px); */
     background-color: var(--white);
     margin: 10px auto 0 auto;
     padding: 20px;
@@ -105,7 +106,7 @@ button,
 }
 
 .draw.results {
-    display: grid;
+    display: block;
 }
 
 .title {
@@ -430,9 +431,7 @@ img:active {
 }
 
 /* Results */
-.results {
-    grid-template-rows: [main] 60% [btn] 1fr;
-}
+
 .results .main {
     margin: auto;
     align-self: center;
@@ -443,6 +442,8 @@ img:active {
 
 .results .main ul {
     padding: 0;
+    margin: 2em auto;
+    width: fit-content;
     text-align: left;
 }
 
@@ -482,8 +483,11 @@ img:active {
 }
 
 .results-btns {
-    grid-row: 3;
+    display: flex;
+    flex-flow: row wrap;
+    /* justify-content: flex-start; */
 }
+
 #share-btn i,
 #restart-btn i,
 .clipboard i {
@@ -514,8 +518,7 @@ img:active {
     line-height: 1.7;
 }
 
-.error-btns,
-.results-btns {
+.error-btns {
     align-self: end;
     grid-column-end: span 2;
 }

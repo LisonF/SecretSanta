@@ -320,7 +320,9 @@ $(document).on('click', '.modify-rule', function () {
 function openNewRuleWindow() {
     $('.new-rule-container').show();
     $('.rules-list-container').hide();
-    $('#validate_btn').hide();
+    $('#validate_btn, #prev_btn').hide();
+    document.getElementById('rules').style.gridTemplateRows =
+        '[title] 60px [main] 1fr [btn] 1px';
 }
 
 function writeTheRule(participant1, participant2) {
@@ -523,7 +525,9 @@ function removeTheOtherParticipant(rule, participant, available_options) {
 function goBackToRulesList() {
     $('.new-rule-container').hide();
     $('.rules-list-container').show();
-    $('#validate_btn').show();
+    $('#validate_btn, #prev_btn').show();
+    document.getElementById('rules').style.gridTemplateRows =
+        '[title] 60px [main] 1fr [btn] 100px';
 }
 
 function displayErrorPage() {
