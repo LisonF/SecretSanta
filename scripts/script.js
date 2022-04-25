@@ -427,7 +427,7 @@ function saveToFirestore(participantsPairs) {
 }
 
 function goToResultsPage(newResultRef) {
-    var resultUrl = document.location + 'results.html?' + newResultRef.id
+    var resultUrl = document.location.origin + document.location.pathname + '/results.html?' + newResultRef.id
     document.location.assign(resultUrl);
 }
 
