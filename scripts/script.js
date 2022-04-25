@@ -1,10 +1,34 @@
+/*FIREBASE initialisation*/
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+import{ 
+    getFirestore, collection, getDocs,
+    addDoc, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"
+
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+apiKey: "AIzaSyCjePvAVzrjKLK78EipUGZ7O9EBVBFq_mU",
+authDomain: "my-secret-santa-d581b.firebaseapp.com",
+projectId: "my-secret-santa-d581b",
+storageBucket: "my-secret-santa-d581b.appspot.com",
+messagingSenderId: "803053895148",
+appId: "1:803053895148:web:ae2a35dfc53d80bea214c9"
+};
+
+
+// Initialize Firebase & services
+const app = initializeApp(firebaseConfig);
+const db = getFirestore();
+
+
+
 /* DEFINITION DES VARIABLES PARTAGEES DANS LE DOCUMENT */
 const draw = document.getElementsByClassName("draw");
 const currentRule = document.getElementsByClassName("currentRule");
 const  optionsPerParticipant = {}
 
 let currentBox = draw[0];
-let selectedParticipants = {reciprocal: [], unreciprocal: [] };
 var participantsList = [];
 
 
@@ -20,7 +44,7 @@ const rules = []
 class Prerequisites {
     constructor(condition, errorMessage) {
         this.condition = condition; //condition qui doit être true pour permettre de passer à la box suivante
-        this.errorMessage = errorMessage; //message d'erreur affiché dans l'alert //TODO: Make it a method
+        this.errorMessage = errorMessage; //message d'erreur affiché dans l'alert 
 
     }
 };
@@ -44,6 +68,8 @@ prerequisites
         };
         return condition},
     "Veuillez renseigner tous les noms des participants."));
+
+
 prerequisites
     .participantsName
     .push(new Prerequisites(function(){
@@ -54,17 +80,16 @@ prerequisites
                 var condition = false
                 return condition}
         }},
-        `Un participant apparait 2 fois, veuillez supprimer ou renommer une des deux occurences.`));
+        `Un participant apparait 2 fois, supprimez une des deux occurences.`));
 //TODO: Add info on which participant appears twice
-
 /***************************/
 /* NAVIGATE ACROSS THE APP */
 /***************************/
 
 // Afficer le premier écran et cacher les autres
-for (let i =0; i < draw.length; i++){
-    draw[i].style.display = "none";
-};
+// for (let i =0; i < draw.length; i++){
+//     draw[i].style.display = "none";
+// };
 currentBox.style.display = "grid";
 
 
@@ -94,8 +119,8 @@ $(document).on("click", "#next_btn", () => { //Passer à la question suivante
                 break;
         }
         $(currentBox).hide(); 
-        $(currentBox.nextElementSibling).show();
         currentBox = currentBox.nextElementSibling ; 
+        currentBox.style.display = "grid";
     }
 });
 
@@ -196,7 +221,6 @@ $(document).on("click","#add-rule", () => {
         alert("Sélectionnez deux participants avant de valider");
     } 
     if(thisRuleExists(participant1, participant2)){
-        //TODO: Do something here
         alert("reorder");
         goBackToRulesList();
     }
@@ -325,9 +349,14 @@ function participantsToSelect(list, elem) {// Create the list of the participnat
 /*********************/
 /* VALIDATION & DRAW */
 /*********************/
+
+//FIREBASE: Collection reference
+const collectionRef = collection(db, 'results')
+
+
 $(document).on("click", "#validate_btn", () => {
     $(".draw").hide();
-    $("#loading").show();
+    document.getElementById("loading").style.display = "grid"
     
     /** GET ALL AVAILABLE OPTIONS FOR EACH PARTICIPANT */    
     //Get all the options for each participant based on the participants list and the rules
@@ -359,7 +388,7 @@ $(document).on("click", "#validate_btn", () => {
             } else {     
                 //Randomly assign one of the option to the participant with the least 
                 assignedPp = optionsPerParticipant[ppWithTheLessOptions][Math.floor(Math.random() * minNbOptions)]
-                participantsPairs.push([ppWithTheLessOptions, assignedPp])
+                participantsPairs.push({giver: ppWithTheLessOptions, receiver: assignedPp})
                 // Remove the assigned option from the other participants options' list
                 for(let p in optionsPerParticipant){
                     optionsPerParticipant[p] = optionsPerParticipant[p].filter(value => value !== assignedPp)
@@ -371,7 +400,10 @@ $(document).on("click", "#validate_btn", () => {
         
         // if we draw everybody (ie, there is the same number of pairs as the number of participants), the draw is done
         if (participantsPairs.length === participantsList.length){
-            displayResults(participantsPairs)
+            //Save the result list into Firebase
+            // const newResultRef = saveToFirestore(participantsPairs);
+            saveToFirestore(participantsPairs);
+
             break;
         }
 
@@ -384,6 +416,20 @@ $(document).on("click", "#validate_btn", () => {
 
 })
 
+
+
+
+
+function saveToFirestore(participantsPairs) {
+    const newResultRef = doc(collection(db, "result"));
+    setDoc(newResultRef, { participantsPairs })
+        .then(() => { goToResultsPage(newResultRef); });
+}
+
+function goToResultsPage(newResultRef) {
+    var resultUrl = document.location.origin + '/results.html?' + newResultRef.id
+    document.location.assign(resultUrl);
+}
 
 function getTheParticipantWithTheLessOptions(minNbOptions, ppWithTheLessOptions) {
     Object.values(optionsPerParticipant).map((elem, index) => {
@@ -429,16 +475,8 @@ function goBackToRulesList() {
 function displayErrorPage(){
     $(".draw").hide();
     $("#error").show();
-
 }
-function displayResults(participantsPairs){
-    for(let pair of participantsPairs){
-        $("#resultList").append('<li><strong>'+pair[0]+"</strong> fait un cadeau à <strong>"+pair[1] + "</strong></li>"); 
-    }
-    $(".draw").hide();
-    $("#results").show();
-    // 
-};
+
 /*************/
 /** RESULTS **/
 /*************/
@@ -454,34 +492,6 @@ $(document).on("click", ".backtorules_btn", function(){
     $("#rules").show();
     goBackToRulesList();
 });
-
-// Share
-const shareData = {
-    title: 'MySecretSanta',
-    text: 'Résultats du tirage au sort !',
-    url: ''
-    //TODO: How to share the results ? https://stackoverflow.com/questions/51896857/saving-the-html-files-current-state
-  }
-
-  const sharedBtn = document.querySelector('.share_btn');
-  const resultPara = document.querySelector('.shared-result');
-
-  // Share must be triggered by "user activation"
-  sharedBtn.addEventListener('click', async () => {
-    try {
-      await navigator.share(shareData)
-      //TODO: add can share
-      resultPara.textContent = 'MDN shared successfully'
-    } catch(err) {
-      resultPara.textContent = 'Error: ' + err
-      //TODO: Handle error
-    }
-  });
-
-
-
-//TODO: Share button
-
 
 
 

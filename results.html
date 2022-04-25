@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SecretSanta</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="shortcut icon" href="img\icon.png">
+        <script src="jquery-3.6.0.js"></script>
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>   
+     </head>
+    <body>
+        <h1>( > Secret Santa )</h1>
+        <div id="biggerbox">
+            <section class="draw results" >
+                <!-- <h3 class = title>Résultats</h3> -->
+                
+                <div class = "main">
+                    <ul id="resultList"></ul>
+                </div>
+                <div class = results-btns>
+                    <button class="btn share-btn" id="share-btn"><i class="fi fi-sr-share"></i>Partager</button>
+                    <button class="btn clipboard"><i class="fi fi-sr-copy"></i>Copier le lien</button>
+                    <p class="shared-result" ></p>
+                    <button class="btn restart-btn" id="restart-btn"><i class="fi fi-sr-rotate-right modify-rule"></i>Recommencer</button>
+                </div>                
+            </section>
+        </div>
+            <footer>
+                <div>
+                    (c) Designed & Created by Lison Fanuel - 2022  (&#U+1F525)  <br>
+                    <a href="https://www.flaticon.com/free-icons/sad" title="sad icons">Sad icons created by Freepik - Flaticon</a>    
+                </div>
+            </footer>
+            <script type = "module" src="scripts/firebase_init.js"></script>
+            <script type = "module" src="scripts/results.js"></script>
+        </body>
+    </html>

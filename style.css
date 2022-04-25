@@ -1,4 +1,4 @@
-/* TODO: Preblèmes de compatibilité de navigateurs */
+/* TODO: Problèmes de compatibilité de navigateurs */
 
 /* GENERAL */
 @font-face {
@@ -96,17 +96,19 @@ button, #n {
 }
 
 .draw{
-    min-height: calc(80vh - 100px);
-    box-sizing: border-box;
-    width: 100%;
-    /* height: 100%; */
-    display: grid;
+    display: none;
     grid-template-rows: [title] 60px [main] 60% [btn] 100px;
     grid-template-columns: 50% 50%;
     justify-content: center;
-    margin:auto;
     column-gap: 10px;
+    min-height: calc(80vh - 100px);
+    box-sizing: border-box;
+    width: 100%;
+    margin:auto;
 }
+
+.draw.results{
+    display: grid;}
 
 .title{
     grid-row: title;
@@ -390,32 +392,31 @@ button:hover{
     margin-top: 3em;
 }
 /* Results */
-#results {
-    grid-template-rows: [title] 60px [main] 60% [btn] 1fr;
+.results {
+    grid-template-rows: [main] 60% [btn] 1fr;
 }
-#results .main{
+.results .main{
     margin:auto;
     align-self: center;
-    background-color: var(--light-blue);
+    /* background-color: var(--light-blue);
     padding: 1em 2em;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
 }
 
-#results .main ul {
+.results .main ul {
     padding:0;
     text-align: left;
 }
 
-#results .main ul li{
+.results .main ul li{
     text-align: left;
 }
-#results .main ul li:not(:first-of-type){
-    margin-top: 1em ;
+.results .main ul li:not(:first-of-type){
+    margin-top: 0.5em ;
     text-align: left;
 }
 
-#share_btn, #error .btn, #results .btn{
-    /* margin:2em auto 1em auto; */
+#share-btn, #error .btn, .results .btn{
     color:var(--pink);
     line-height: 0;
     border: solid 3px var(--pink);
@@ -427,16 +428,27 @@ button:hover{
     font-weight: bold;   
 }
 
-#share_btn:hover, #share_btn:active, 
+#share-btn {display: none;}
+#share-btn:hover, #share-btn:active, 
 #error .btn:hover,  #error .btn:active, 
-#results .btn:hover, #results .btn:active{
+.results .btn:hover, .results .btn:active{
     color:var(--blue);
     border: solid 3px var(--blue);
 }
 
-#share_btn i, #restart_btn i{
+.results-btns{
+    grid-row: 3;
+}
+#share-btn i, #restart-btn i, .clipboard i {
     margin-right:0.5em;
 }
+
+.shared-result{
+    font-size: 12px;
+    color:var(--black);
+    margin-top: 0;
+}
+
 
 /* ERROR */
 .sad-face{
@@ -462,7 +474,7 @@ button:hover{
 }
 
 
-#error .btn, #results .btn{
+#error .btn, .results .btn{
     margin: 2em auto 0 auto;
 
 }
