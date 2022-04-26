@@ -485,9 +485,13 @@ function saveToFirestore(participantsPairs) {
 function goToResultsPage(newResultRef) {
     let resultUrl =
         document.location.origin +
-        document.location.pathname +
-        'results.html?' +
+        document.location.pathname.substring(
+            0,
+            document.location.pathname.lastIndexOf('/')
+        ) +
+        '/results.html?' +
         newResultRef.id;
+
     document.location.assign(resultUrl);
 }
 
