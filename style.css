@@ -138,13 +138,13 @@ button:hover {
     max-width: 100%;
 }
 
-#nbParticipants .next_btn {
+#nbParticipants .next-btn {
     grid-column-end: span 2;
     margin: 0;
 }
 
 /*Name inputs*/
-.participantName_input {
+.participantName-input {
     margin: 15px 8px;
     background-color: var(--white);
     text-align: center;
@@ -158,12 +158,12 @@ button:hover {
     max-width: 100%;
 }
 
-.participantName_input::placeholder {
+.participantName-input::placeholder {
     font-weight: normal;
     font-size: small;
 }
 /* Participants' rules*/
-.validate_btn {
+.validate-btn {
     background-color: var(--pink);
     background: hsla(177, 52%, 48%, 1);
     background: linear-gradient(
@@ -192,7 +192,7 @@ button:hover {
     font-weight: bold;
 }
 
-.validate_btn:hover {
+.validate-btn:hover {
     background-color: var(--pink);
     background: hsla(177, 52%, 48%, 1);
     background: linear-gradient(

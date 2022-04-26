@@ -84,7 +84,7 @@ prerequisites.participantsName.push(
 );
 
 function isThereAMissingParticipant() {
-    let nameInputs = $('.participantName_input');
+    let nameInputs = $('.participantName-input');
     var condition = true;
     for (let i = 0; i < nameInputs.length; i++) {
         if ($(nameInputs[i]).val() === '') {
@@ -119,7 +119,7 @@ function isThereADoublonInParticipants() {
 
 currentBox.style.display = 'grid';
 
-$(document).on('click', '#next_btn', () => {
+$(document).on('click', '.next-btn', () => {
     //Passer à la question suivante
     let error = false;
     for (let i = 0; i < prerequisites[currentBox.id].length; i++) {
@@ -156,7 +156,7 @@ $(document).on('click', '#next_btn', () => {
     }
 });
 
-$(document).on('click', '#prev_btn', () => {
+$(document).on('click', '.prev-btn', () => {
     //Retour à la question précédente
     $(currentBox).hide();
     $(currentBox.previousElementSibling).show();
@@ -188,7 +188,7 @@ function makeInputBoxes(n) {
     for (let i = 1; i <= n; i++) {
         fillParticipantsName.insertAdjacentHTML(
             'beforeend',
-            `<input class = "participantName_input" id="participant${i}" name="participant"  type="text" placeholder= "Participant ${i}"/><br>`
+            `<input class = "participantName-input" id="participant${i}" name="participant"  type="text" placeholder= "Participant ${i}"/><br>`
         );
     }
 }
@@ -348,7 +348,7 @@ $(document).on('click', '.modify-rule', function () {
 function openNewRuleWindow() {
     $('.new-rule-container').show();
     $('.rules-list-container').hide();
-    $('#validate_btn, #prev_btn').hide();
+    $('#validate-btn, .prev-btn').hide();
     document.getElementById('rules').style.gridTemplateRows =
         '[title] 60px [main] 1fr [btn] 1px';
 }
@@ -411,7 +411,7 @@ function participantsToSelect(list, elem) {
 //FIREBASE: Collection reference
 const collectionRef = collection(db, 'results');
 
-$(document).on('click', '#validate_btn', () => {
+$(document).on('click', '#validate-btn', () => {
     $('.draw').hide();
     document.getElementById('loading').style.display = 'grid';
 
@@ -558,7 +558,7 @@ function removeTheOtherParticipant(rule, participant, available_options) {
 function goBackToRulesList() {
     $('.new-rule-container').hide();
     $('.rules-list-container').show();
-    $('#validate_btn, #prev_btn').show();
+    $('#validate-btn, #prev-btn').show();
     document.getElementById('rules').style.gridTemplateRows =
         '[title] 60px [main] 1fr [btn] 100px';
 }
@@ -573,12 +573,12 @@ function displayErrorPage() {
 /*************/
 
 // Restart = reload the page
-$(document).on('click', '#restart_btn', () => {
+$(document).on('click', '#restart-btn', () => {
     window.location.reload();
 });
 
 // Go back to the rules
-$(document).on('click', '.backtorules_btn', function () {
+$(document).on('click', '.backtorules-btn', function () {
     $('.draw').hide();
     $('#rules').show();
     goBackToRulesList();

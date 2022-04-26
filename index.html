@@ -3,7 +3,7 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
-<html>
+<html lang="fr">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,14 +23,14 @@
             <section class = "draw" id="nbParticipants">
                 <h2 class="instructions title">Combien de participants ?</h2>
                 <input class="main" type="number" min = 3 name="nbPp" id="n">
-                <button class="btn next_btn" id = "next_btn"><img src="img/angle-circle-right.svg" alt="Suivant"></button>
+                <button class="btn next-btn" ><img src="img/angle-circle-right.svg" alt="Suivant"></button>
             </section>
             <section class = "draw" id="participantsName">
                 <h2 class="instructions title">Indiquez le nom des participants</h2>
                 <div class="main" id = "fillParticipantsName">
                 </div>
-                <button class="btn prev_btn" id = "prev_btn"><img src="img/angle-circle-left.svg" alt="Précédent"></button>
-                <button class="btn next_btn" id = "next_btn"><img src="img/angle-circle-right.svg" alt="Suivant"></button>
+                <button class="btn prev-btn" ><img src="img/angle-circle-left.svg" alt="Précédent"></button>
+                <button class="btn next-btn" ><img src="img/angle-circle-right.svg" alt="Suivant"></button>
             </section>
             <section class="draw" id="rules">
                 <h2 class="instructions title">Règles</h2>
@@ -65,11 +65,12 @@
                         <button class="btn" id="create-rule"><img src="img/add.svg" alt="Créer une nouvelle règle"></button>
                     </div>
                 </div>
-                <button class="btn prev_btn" id = "prev_btn"><img src="img/angle-circle-left.svg" alt="Précédent"></button>
-                <button class="btn validate_btn" id = "validate_btn" href="test-draw.html" >Lancer le tirage !</button>
+                <button class="btn prev-btn" ><img src="img/angle-circle-left.svg" alt="Précédent"></button>
+                <button class="btn validate-btn" id = "validate-btn" >Lancer le tirage !</button>
 
             </section>
             <section class="draw" id="loading">
+                <h2 class="title" hidden>Loading</h2>
                 <div class="snippet main">
                     <div class="loader-container">
                       <div class="dot-windmill"></div>
@@ -79,14 +80,15 @@
             </section>
             
             <section id="error" class = draw>
+                <h2 class="title" hidden>Error</h2>
                 <img class="sad-face title" src="img/sad-face-in-rounded-square.png" alt="erreur">
                 <div class="error-message main">
                     Nous n'avons pas trouvé de solution. <br>
                     Essayez d'enlever des règles !
                 </div>
                 <div class = error-btns>
-                    <button class="btn backtorules_btn" id="backtorules_btn"><i class="fi fi-sr-pencil modify-rule"></i>Modifier les règles</button>
-                    <button class="btn restart_btn" id="restart_btn"><i class="fi fi-sr-rotate-right modify-rule"></i>Recommencer</button>
+                    <button class="btn backtorules-btn" id="backtorules-btn"><i class="fi fi-sr-pencil modify-rule"></i>Modifier les règles</button>
+                    <button class="btn restart-btn" id="restart-btn"><i class="fi fi-sr-rotate-right modify-rule"></i>Recommencer</button>
                     </div>
             </section>
         </div>
@@ -98,7 +100,7 @@
         <!-- Insert this script at the bottom of the HTML, but before you use any Firebase services -->
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-        <script type = "module" src="scripts/firebase_init.js"></script>
-        <script type = "module" src="scripts/script.js" async defer></script>
+        <script type = "module" src="scripts/firebase-init.js"></script>
+        <script src="scripts/script.js" async defer></script>
     </body>
 </html>
