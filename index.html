@@ -11,27 +11,28 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="style.css">
-        <link rel="shortcut icon" href="img\icon.png">
+        <link rel="shortcut icon" href="img/pink-santa-hat.png">
         <script src="jquery-3.6.0.js"></script>
         <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>   
      </head>
     <body>
-        <h1>( > Secret Santa )</h1>
+        <img class="logo header-logo" src="img/SecretSanta-title.png" alt="SecretSanta">
+        <h1 hidden>Secret Santa</h1>
         <div id="biggerbox">
             <section class = "draw" id="nbParticipants">
-                <h3 class="instructions title">Combien de participants ?</h3>
+                <h2 class="instructions title">Combien de participants ?</h2>
                 <input class="main" type="number" min = 3 name="nbPp" id="n">
                 <button class="btn next_btn" id = "next_btn"><img src="img/angle-circle-right.svg" alt="Suivant"></button>
             </section>
             <section class = "draw" id="participantsName">
-                <h3 class="instructions title">Indiquez le nom des participants</h3>
+                <h2 class="instructions title">Indiquez le nom des participants</h2>
                 <div class="main" id = "fillParticipantsName">
                 </div>
                 <button class="btn prev_btn" id = "prev_btn"><img src="img/angle-circle-left.svg" alt="Précédent"></button>
                 <button class="btn next_btn" id = "next_btn"><img src="img/angle-circle-right.svg" alt="Suivant"></button>
             </section>
             <section class="draw" id="rules">
-                <h3 class="instructions title">Règles</h3>
+                <h2 class="instructions title">Règles</h2>
                 <div class="main">
                     <div class="new-rule-container">
                         <div class="ruleText">
