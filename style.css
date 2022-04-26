@@ -66,7 +66,6 @@ button,
 
 /*MAIN BOX*/
 #biggerbox {
-    /* TODO: Resoudre le problème de taille qui change sur mobile quand on modifie les champs */
     display: flex;
     align-items: center;
     width: 98%;
@@ -125,7 +124,7 @@ button:hover {
 }
 
 .btn img:hover,
-img:active {
+.btn img:active {
     filter: invert(55%) sepia(45%) saturate(581%) hue-rotate(128deg)
         brightness(107%) contrast(84%);
 }
@@ -306,7 +305,6 @@ img:active {
 
 .new-rule-container .btn img {
     border-radius: 50%;
-    /* object-fit: scale-down; */
     background: none;
     height: 45px;
     width: 45px;
@@ -350,7 +348,7 @@ img:active {
 }
 
 #create-rule img:hover,
-img:active {
+#create-rule img:active {
     height: 50px;
     width: 50px;
     margin: auto;
@@ -441,10 +439,8 @@ img:active {
     text-align: left;
 }
 
-#share-btn,
 #error .btn,
-.results .btn {
-    color: var(--pink);
+.results-btns .btn {
     line-height: 0;
     border: solid 3px var(--pink);
     height: 50px;
@@ -455,15 +451,50 @@ img:active {
     font-weight: bold;
 }
 
-#share-btn {
-    display: none;
+.restart-btn,
+#error .btn {
+    color: var(--pink);
 }
-#share-btn:hover,
-#share-btn:active,
+
+.share-buttons {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.shared-result {
+    margin: 0;
+}
+
+#restart-btn {
+    margin-right: 8px;
+}
+.share-btn,
+.clipboard {
+    display: none;
+    color: white;
+    background-color: var(--pink);
+    margin-left: 8px;
+}
+
+#restart-btn,
+.share-btn,
+.clipboard {
+    margin-bottom: 18px;
+}
+
+.share-btn:hover,
+.clipboard:hover,
+.share-btn:active,
+.clipboard:active {
+    background-color: var(--blue);
+    border: solid 3px var(--blue);
+}
+
+#restart-btn:hover,
+#restart-btn:active,
 #error .btn:hover,
-#error .btn:active,
-.results .btn:hover,
-.results .btn:active {
+#error .btn:active {
     color: var(--blue);
     border: solid 3px var(--blue);
 }
@@ -471,7 +502,7 @@ img:active {
 .results-btns {
     display: flex;
     flex-flow: row wrap;
-    /* justify-content: flex-start; */
+    justify-content: center;
 }
 
 #share-btn i,
@@ -483,20 +514,19 @@ img:active {
 .shared-result {
     font-size: 12px;
     color: var(--black);
-    margin-top: 0;
+    margin-top: -18px;
+    margin-left: 8px;
 }
 
 /* ERROR */
 .sad-face {
-    display: block;
     height: 75px;
     width: 75px;
     grid-column-end: span 2;
     justify-self: center;
-    margin-top: 10px;
-    /* align-self: end; */
-    filter: invert(55%) sepia(45%) saturate(581%) hue-rotate(128deg)
-        brightness(107%) contrast(84%);
+    margin: 16px auto;
+    filter: invert(12%) sepia(7%) saturate(3221%) hue-rotate(195deg)
+        brightness(100%) contrast(90%);
 }
 
 .error-message {
@@ -509,8 +539,7 @@ img:active {
     grid-column-end: span 2;
 }
 
-#error .btn,
-.results .btn {
+#error .btn {
     margin: 2em auto 0 auto;
 }
 
