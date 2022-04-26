@@ -49,21 +49,31 @@ class Prerequisites {
 let prerequisites = { nbParticipants: [], participantsName: [], rules: [] };
 
 prerequisites.nbParticipants.push(
-    new Prerequisites(function () {
-        return document.getElementsByName('nbPp')[0].value > 2;
-    }, 'Veuillez sélectionner au moins 3 participants.')
+    new Prerequisites(
+        function () {
+            return document.getElementsByName('nbPp')[0].value > 2;
+        },
+        function () {
+            return 'Veuillez sélectionner au moins 3 participants.';
+        }
+    )
 );
 prerequisites.participantsName.push(
-    new Prerequisites(function () {
-        let nameInputs = $('.participantName_input');
-        var condition = true;
-        for (let i = 0; i < nameInputs.length; i++) {
-            if ($(nameInputs[i]).val() === '') {
-                var condition = false;
+    new Prerequisites(
+        function () {
+            let nameInputs = $('.participantName_input');
+            var condition = true;
+            for (let i = 0; i < nameInputs.length; i++) {
+                if ($(nameInputs[i]).val() === '') {
+                    var condition = false;
+                }
             }
+            return condition;
+        },
+        function () {
+            return 'Veuillez renseigner tous les noms des participants.';
         }
-        return condition;
-    }, 'Veuillez renseigner tous les noms des participants.')
+    )
 );
 
 prerequisites.participantsName.push(
