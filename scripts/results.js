@@ -13,7 +13,6 @@ const db = getFirestore();
 
 // const resultRef = localStorage.getItem("resultRef")
 var resultRef = document.location.search.substring(1);
-console.log(resultRef, typeof resultRef);
 
 const docRef = doc(db, 'result', resultRef);
 const docSnap = await getDoc(docRef);
@@ -61,12 +60,13 @@ shareBtn.addEventListener('click', () => {
     if (navigator.share) {
         navigator
             .share({
-                title: 'My Secret Santa',
+                title: 'Secret Santa',
                 text: 'Voici les résultats du tirage !',
                 url: document.location.href,
             })
             .then(() => {
                 console.log('Thanks for sharing!');
+                $('.shared-result').text('Partagé !');
             })
             .catch((err) => {
                 console.log(`Couldn't share because of`, err.message);

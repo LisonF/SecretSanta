@@ -55,10 +55,10 @@ prerequisites.nbParticipants.push(
 );
 prerequisites.participantsName.push(
     new Prerequisites(function () {
-        let a = $('.participantName_input');
+        let nameInputs = $('.participantName_input');
         var condition = true;
-        for (let i = 0; i < a.length; i++) {
-            if ($(a[i]).val() === '') {
+        for (let i = 0; i < nameInputs.length; i++) {
+            if ($(nameInputs[i]).val() === '') {
                 var condition = false;
             }
         }
@@ -67,28 +67,41 @@ prerequisites.participantsName.push(
 );
 
 prerequisites.participantsName.push(
-    new Prerequisites(function () {
-        let a = getListOfParticipants(
-            document.getElementsByName('participant')
-        );
-        var condition = true;
-        for (let i = 0; i < a.length; i++) {
-            if (a.filter((elem) => elem === a[i]).length > 1) {
-                var condition = false;
-                return condition;
-            }
+    new Prerequisites(
+        function () {
+            return isThereADoublonInParticipants()[0];
+        },
+        function () {
+            return (
+                isThereADoublonInParticipants()[1] +
+                ` apparait 2 fois, supprimez une des deux occurences.`
+            );
         }
-    }, `Un participant apparait 2 fois, supprimez une des deux occurences.`)
+    )
 );
-//TODO: Add info on which participant appears twice
+
+function isThereADoublonInParticipants() {
+    let listOfParticipants = getListOfParticipants(
+        document.getElementsByName('participant')
+    );
+    var condition = true;
+    for (let i = 0; i < listOfParticipants.length; i++) {
+        if (
+            listOfParticipants.filter((elem) => elem === listOfParticipants[i])
+                .length > 1
+        ) {
+            var condition = false;
+            var participantDoublon = listOfParticipants[i];
+        }
+    }
+    console.log(condition, participantDoublon);
+    return [condition, participantDoublon];
+}
+
 /***************************/
 /* NAVIGATE ACROSS THE APP */
 /***************************/
 
-// Afficer le premier écran et cacher les autres
-// for (let i =0; i < draw.length; i++){
-//     draw[i].style.display = "none";
-// };
 currentBox.style.display = 'grid';
 
 $(document).on('click', '#next_btn', () => {
@@ -98,7 +111,7 @@ $(document).on('click', '#next_btn', () => {
         // Verifie les prérequis associé à chaque étape
         if (prerequisites[currentBox.id][i].condition() === false) {
             error = true;
-            alert(prerequisites[currentBox.id][i].errorMessage);
+            alert(prerequisites[currentBox.id][i].errorMessage());
             break;
         }
     }
@@ -402,7 +415,7 @@ $(document).on('click', '#validate_btn', () => {
                 (optionsPerParticipant[participant] =
                     options_per_participant[i])
         );
-
+        console.log(n_loop);
         // Initialise the draw variables at the beginning of the draw
         let ppWithTheLessOptions = '',
             assignedPp = '',
@@ -441,6 +454,7 @@ $(document).on('click', '#validate_btn', () => {
                 }
                 // Remove the participant with the least options from the list
                 delete optionsPerParticipant[ppWithTheLessOptions];
+                minNbOptions = Object.keys(optionsPerParticipant).length;
             }
         }
 
