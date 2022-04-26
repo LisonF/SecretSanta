@@ -54,24 +54,17 @@ prerequisites.nbParticipants.push(
             return document.getElementsByName('nbPp')[0].value > 2;
         },
         function () {
-            return 'Veuillez sélectionner au moins 3 participants.';
+            return 'Sélectionnez au moins 3 participants.';
         }
     )
 );
 prerequisites.participantsName.push(
     new Prerequisites(
         function () {
-            let nameInputs = $('.participantName_input');
-            var condition = true;
-            for (let i = 0; i < nameInputs.length; i++) {
-                if ($(nameInputs[i]).val() === '') {
-                    var condition = false;
-                }
-            }
-            return condition;
+            return isThereAMissingParticipant()[0];
         },
         function () {
-            return 'Veuillez renseigner tous les noms des participants.';
+            return 'Renseignez le nom du ' + isThereAMissingParticipant()[1];
         }
     )
 );
@@ -90,6 +83,18 @@ prerequisites.participantsName.push(
     )
 );
 
+function isThereAMissingParticipant() {
+    let nameInputs = $('.participantName_input');
+    var condition = true;
+    for (let i = 0; i < nameInputs.length; i++) {
+        if ($(nameInputs[i]).val() === '') {
+            var condition = false;
+            var participantMissing = $(nameInputs[i]).attr('placeholder');
+            break;
+        }
+    }
+    return [condition, participantMissing];
+}
 function isThereADoublonInParticipants() {
     let listOfParticipants = getListOfParticipants(
         document.getElementsByName('participant')
