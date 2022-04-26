@@ -1,8 +1,5 @@
 /* GENERAL */
-@font-face {
-    font-family: 'Make the best';
-    src: url('Make the Best - Personal Use.otf');
-}
+
 :root {
     --white: #f2f3f7;
     --grey: #b9b6b6;
@@ -32,7 +29,6 @@ body {
 h1 {
     color: var(--white);
     font-size: 50px;
-    font-family: 'Make the best';
     font-weight: lighter;
     line-height: 1;
     margin: 30px auto 0 auto;
