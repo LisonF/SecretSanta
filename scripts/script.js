@@ -135,6 +135,7 @@ $(document).on('click', '.next-btn', () => {
         switch (currentBox.id) {
             case 'nbParticipants':
                 makeInputBoxes(document.getElementsByName('nbPp')[0].value);
+                $('header p').hide();
                 break;
             case 'participantsName':
                 participantsList = getListOfParticipants(
@@ -163,6 +164,7 @@ $(document).on('click', '.prev-btn', () => {
     switch (currentBox.id) {
         case 'participantsName':
             $('#fillParticipantsName').children().not('.instructions').remove();
+            $('header p').show();
             break;
         case 'rules':
             removeContent($('.select'), $('option'));
@@ -558,7 +560,7 @@ function removeTheOtherParticipant(rule, participant, available_options) {
 function goBackToRulesList() {
     $('.new-rule-container').hide();
     $('.rules-list-container').show();
-    $('#validate-btn, #prev-btn').show();
+    $('#validate-btn, .prev-btn').show();
     document.getElementById('rules').style.gridTemplateRows =
         '[title] 60px [main] 1fr [btn] 100px';
 }
