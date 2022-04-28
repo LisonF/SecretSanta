@@ -72,6 +72,12 @@ header p {
     color: var(--black);
     margin: 8px auto;
 }
+
+header p img {
+    display: inline-block;
+    height: 18px;
+    margin-bottom: -2px;
+}
 /*INTRO*/
 button,
 #n {
