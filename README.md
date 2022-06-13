@@ -58,7 +58,7 @@ This web application is designed to help in organizing Secret Santa events. The 
 
 The following tools were used in this project:
 
-- [HTML](https://html.spec.whatwg.org/multipage/)
+- [HTML](https://html.spec.whatwg.org/dev/)
 - [CSS](https://www.w3.org/Style/CSS/Overview.en.html)
 - [Javascript](https://www.javascript.com/)
 
