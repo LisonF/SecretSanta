@@ -78,15 +78,7 @@ header p img {
     height: 18px;
     margin-bottom: -2px;
 }
-/*INTRO*/
-button,
-#n {
-    background-color: var(--white);
-    padding: 15px;
-    color: var(--black);
-    border-radius: 5px;
-    border: none;
-}
+
 
 /*MAIN BOX*/
 #biggerbox {
@@ -127,7 +119,16 @@ button,
     grid-column-end: span 2;
 }
 
+
+/* Navigation Buttons*/
+
 .btn {
+    
+    background-color: var(--white);
+    padding: 15px;
+    color: var(--black);
+    border-radius: 5px;
+    border: none;
     align-self: end;
     justify-self: center;
     display: block;
@@ -136,9 +137,7 @@ button,
     line-height: 0;
 }
 
-/* Navigation Buttons*/
-
-button:hover {
+.btn:hover {
     cursor: pointer;
 }
 
@@ -158,10 +157,13 @@ button:hover {
 
 /*Number of participants*/
 #n {
+    background-color: var(--white);
     color: var(--pink);
     margin: auto;
+    padding: 15px;
     font-size: large;
     border: var(--grey) 1px solid;
+    border-radius: 5px;
     max-width: 100%;
 }
 
@@ -252,27 +254,9 @@ button:hover {
 }
 
 /* Create a rule */
-#rules-list i {
-    margin: auto;
-    color: var(--blue);
-}
 
-#rules-list span {
-    font-weight: bold;
-}
-#rules-list i:last-of-type {
-    padding-right: 1em;
-}
 
-#rules-list i:hover {
-    color: var(--pink);
-    cursor: pointer;
-}
-
-#rules-list li {
-    margin: 1em 0;
-}
-
+/* Create a rule - New rule menu*/
 .new-rule-container {
     display: grid;
     grid-template-columns: 50% 50%;
@@ -285,7 +269,6 @@ button:hover {
 
 .reciprocal-rule-container {
     height: 30px;
-    /* align-self: start; */
 }
 
 .new-rule-container h4,
@@ -324,6 +307,21 @@ button:hover {
     grid-column-end: span 2;
 }
 
+#add-rule {
+    justify-self: left;
+    margin-left: 10px;
+    grid-column: 2;
+    grid-row: 4;
+}
+
+#cancel-rule {
+    justify-self: right;
+    margin-right: 10px;
+    grid-column: 1;
+    grid-row: 4;
+}
+
+/* Create a rule - Rules' summary*/
 .new-rule-container button {
     align-self: center;
     background-color: white;
@@ -341,21 +339,28 @@ button:hover {
     width: 45px;
 }
 
-#add-rule {
-    justify-self: left;
-    margin-left: 10px;
-    grid-column: 2;
-    grid-row: 4;
+#rules-list i {
+    margin: auto;
+    color: var(--blue);
 }
 
-#cancel-rule {
-    justify-self: right;
-    margin-right: 10px;
-    grid-column: 1;
-    grid-row: 4;
+#rules-list span {
+    font-weight: bold;
+}
+#rules-list i:last-of-type {
+    padding-right: 1em;
 }
 
-/* List of rules */
+#rules-list i:hover {
+    color: var(--pink);
+    cursor: pointer;
+}
+
+#rules-list li {
+    margin: 1em 0;
+}
+
+
 .rules-list-container {
     height: 100%;
     padding: 20px;
@@ -592,11 +597,11 @@ footer div {
 }
 
 footer div a {
-    text-decoration: none;
-    color: var(--white);
-    font-size: 8px;
+    color: var(--pink);
 }
-
+footer div a:hover, footer div a:active, footer div a:focus  {
+    color: var(--white);
+}
 @media only screen and (min-width: 768px) {
     #biggerbox {
         width: 80%;

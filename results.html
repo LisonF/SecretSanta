@@ -4,43 +4,62 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
 <html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>SecretSanta</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <link rel="shortcut icon" href="img/pink-santa-hat.png">
-        <script src="jquery-3.6.0.js"></script>
-        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>   
-     </head>
-    <body>
-        <h1 hidden>Secret Santa</h1>
-        <img class="logo header-logo" src="img/SecretSanta-title.png" alt="SecretSanta">
-        <div id="biggerbox">
-            <section class="draw results">    
-                <h3 class="title" hidden>Résultats</h3>            
-                <div class = "main">
-                    <ul id="resultList"></ul>
-                </div>
-                <div class = results-btns>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>SecretSanta</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="shortcut icon" href="img/pink-santa-hat.png" />
+    <script src="jquery-3.6.0.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css"
+    />
+  </head>
+  <body>
+    <header>
+      <h1 hidden>Secret Santa</h1>
+      <a href="./"
+        ><img
+          class="logo header-logo"
+          src="img/SecretSanta-title.png"
+          alt="SecretSanta"
+      /></a>
+      <h3 class="description">Organisateur d'échanges de cadeaux</h3>
+    </header>
 
-                    <button class="btn restart-btn" id="restart-btn"><i class="fi fi-sr-rotate-right modify-rule"></i>Recommencer</button>
-                    <div class="share-buttons">
-                        <button class="btn share-btn" id="share-btn"><i class="fi fi-sr-share"></i>Partager</button>
-                        <button class="btn clipboard"><i class="fi fi-sr-copy"></i>Copier le lien</button>
-                        <p class="shared-result" ></p>
-                    </div>
-                </div>                
-            </section>
+    <div id="biggerbox">
+      <section class="draw results">
+        <h3 class="title" hidden>Résultats</h3>
+        <div class="main">
+          <ul id="resultList"></ul>
         </div>
-            <footer>
-                <div>
-                    &copy; Designed & Created by Lison Fanuel - 2022  &#x1F525;<br>
-                </div>
-            </footer>
-            <script type = "module" src="scripts/firebase_init.js"></script>
-            <script type = "module" src="scripts/results.js"></script>
-        </body>
-    </html>
+        <div class="results-btns">
+          <button class="btn restart-btn" id="restart-btn">
+            <i class="fi fi-sr-rotate-right modify-rule"></i>Recommencer
+          </button>
+          <div class="share-buttons">
+            <button class="btn share-btn" id="share-btn">
+              <i class="fi fi-sr-share"></i>Partager
+            </button>
+            <button class="btn clipboard">
+              <i class="fi fi-sr-copy"></i>Copier le lien
+            </button>
+            <p class="shared-result"></p>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <div>
+        &copy; 2022 - Designed & Created by
+        <a href="https://www.lisonfanuel.com">Lison Fanuel</a>
+        &#x1F525;<br />
+      </div>
+    </footer>
+    <script type="module" src="scripts/firebase_init.js"></script>
+    <script type="module" src="scripts/results.js"></script>
+  </body>
+</html>

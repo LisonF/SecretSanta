@@ -4,108 +4,147 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
 <html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>SecretSanta</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="Lison Fanuel" />
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <link rel="shortcut icon" href="img/pink-santa-hat.png">
-        <script src="jquery-3.6.0.js"></script>
-        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>   
-     </head>
-    <body>
-        <header>
-            <a href="./"><img class="logo header-logo" src="img/SecretSanta-title.png" alt="SecretSanta" ></a>
-            <h1 hidden>Secret Santa</h1>
-            <h3 class="description">Organisateur d'échanges de cadeaux </h3>
-            <p>Indiquez les participants et les combinaisons à exclure,<br>
-                <img src="img/SecretSanta-title.png" alt="Secret Santa"> s'occupe du reste !</p>
-        </header>
-        <div id="biggerbox">
-            <section class = "draw" id="nbParticipants">
-                <h2 class="instructions title">Combien de participants ?</h2>
-                <input class="main" type="number" min = 3 name="nbPp" id="n">
-                <button class="btn next-btn" ><img src="img/angle-circle-right.svg" alt="Suivant"></button>
-            </section>
-            <section class = "draw" id="participantsName">
-                <h2 class="instructions title">Indiquez le nom des participants</h2>
-                <div class="main" id = "fillParticipantsName">
-                </div>
-                <button class="btn prev-btn" ><img src="img/angle-circle-left.svg" alt="Précédent"></button>
-                <button class="btn next-btn" ><img src="img/angle-circle-right.svg" alt="Suivant"></button>
-            </section>
-            <section class="draw" id="rules">
-                <h2 class="instructions title">Règles</h2>
-                <div class="main">
-                    <div class="new-rule-container">
-                        <div class="ruleText">
-                            <select id="participant1-select" class="participant1 select"> 
-                                <option class = "instructions" selected>...</option>    
-                            </select> 
-                            <div>ne fait pas de cadeau à</div>
-                            <select id="participant2-select" class="participant2 select"> 
-                                <option class = "instructions" selected>...</option>    
-                            </select> 
-                        </div>
-                        <div class="reciprocal-rule-container">
-                            <div class="reciprocal-rule">
-                                <span id="participant1-reciprocal"></span>
-                                <span>ne fait pas de cadeau à</span>
-                                <span id="participant2-reciprocal"></span>
-                            </div>
-                        </div>
-                        <div id="reciprocal-container">
-                            <label for="reciprocal"><i class="fi fi-sr-exchange"></i> Réciproque </label>
-                            <input type="checkbox" name="reciprocal" id="reciprocal">    
-                        </div>
-                        <button class="btn" id="cancel-rule"><img src="img/cross.png" alt="Annuler la règle"></button>
-                        <button class="btn" id="add-rule"><img src="img/yes.png" alt="Valider la règle"></button>
-                    </div>
-                    <div class="rules-list-container">
-                        <ul id="rules-list"> 
-                        </ul>
-                        <button class="btn" id="create-rule"><img src="img/add.svg" alt="Créer une nouvelle règle"></button>
-                    </div>
-                </div>
-                <button class="btn prev-btn" ><img src="img/angle-circle-left.svg" alt="Précédent"></button>
-                <button class="btn validate-btn" id = "validate-btn" >Lancer le tirage !</button>
-
-            </section>
-            <section class="draw" id="loading">
-                <h2 class="title" hidden>Loading</h2>
-                <div class="snippet main">
-                    <div class="loader-container">
-                      <div class="dot-windmill"></div>
-                      <p>Veuillez patienter <br> Tirage en cours</p>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="error" class = draw>
-                <h2 class="title" hidden>Error</h2>
-                <img class="sad-face title" src="img/sad-face-in-rounded-square.png" alt="erreur">
-                <div class="error-message main">
-                    Nous n'avons pas trouvé de solution. <br>
-                    Essayez d'enlever des règles !
-                </div>
-                <div class = error-btns>
-                    <button class="btn backtorules-btn" id="backtorules-btn"><i class="fi fi-sr-pencil modify-rule"></i>Modifier les règles</button>
-                    <button class="btn restart-btn" id="restart-btn"><i class="fi fi-sr-rotate-right modify-rule"></i>Recommencer</button>
-                    </div>
-            </section>
-        </div>
-        <footer>
-            <div>
-                &copy; Designed & Created by Lison Fanuel - 2022  &#x1F525;<br>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>SecretSanta</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Lison Fanuel" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="shortcut icon" href="img/pink-santa-hat.png" />
+    <script src="jquery-3.6.0.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css"
+    />
+  </head>
+  <body>
+    <header>
+      <a href="./"
+        ><img
+          class="logo header-logo"
+          src="img/SecretSanta-title.png"
+          alt="SecretSanta"
+      /></a>
+      <h1 hidden>Secret Santa</h1>
+      <h3 class="description">Organisateur d'échanges de cadeaux</h3>
+      <p>
+        Indiquez les participants et les combinaisons à exclure,<br />
+        <img src="img/SecretSanta-title.png" alt="Secret Santa" /> s'occupe du
+        reste !
+      </p>
+    </header>
+    <div id="biggerbox">
+      <section class="draw" id="nbParticipants">
+        <h2 class="instructions title">Combien de participants ?</h2>
+        <input class="main" type="number" min="3" name="nbPp" id="n" />
+        <button class="btn next-btn">
+          <img src="img/angle-circle-right.svg" alt="Suivant" />
+        </button>
+      </section>
+      <section class="draw" id="participantsName">
+        <h2 class="instructions title">Indiquez le nom des participants</h2>
+        <div class="main" id="fillParticipantsName"></div>
+        <button class="btn prev-btn">
+          <img src="img/angle-circle-left.svg" alt="Précédent" />
+        </button>
+        <button class="btn next-btn">
+          <img src="img/angle-circle-right.svg" alt="Suivant" />
+        </button>
+      </section>
+      <section class="draw" id="rules">
+        <h2 class="instructions title">Règles</h2>
+        <div class="main">
+          <div class="new-rule-container">
+            <div class="ruleText">
+              <select id="participant1-select" class="participant1 select">
+                <option class="instructions" selected>...</option>
+              </select>
+              <div>ne fait pas de cadeau à</div>
+              <select id="participant2-select" class="participant2 select">
+                <option class="instructions" selected>...</option>
+              </select>
             </div>
-        </footer>
-        <!-- Insert this script at the bottom of the HTML, but before you use any Firebase services -->
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-        <script type = "module" src="scripts/firebase_init.js"></script>
-        <script type = "module" src="scripts/script.js" async defer></script>
-    </body>
+            <div class="reciprocal-rule-container">
+              <div class="reciprocal-rule">
+                <span id="participant1-reciprocal"></span>
+                <span>ne fait pas de cadeau à</span>
+                <span id="participant2-reciprocal"></span>
+              </div>
+            </div>
+            <div id="reciprocal-container">
+              <label for="reciprocal"
+                ><i class="fi fi-sr-exchange"></i> Réciproque
+              </label>
+              <input type="checkbox" name="reciprocal" id="reciprocal" />
+            </div>
+            <button class="btn" id="cancel-rule">
+              <img src="img/cross.png" alt="Annuler la règle" />
+            </button>
+            <button class="btn" id="add-rule">
+              <img src="img/yes.png" alt="Valider la règle" />
+            </button>
+          </div>
+          <div class="rules-list-container">
+            <ul id="rules-list"></ul>
+            <button class="btn" id="create-rule">
+              <img src="img/add.svg" alt="Créer une nouvelle règle" />
+            </button>
+          </div>
+        </div>
+        <button class="btn prev-btn">
+          <img src="img/angle-circle-left.svg" alt="Précédent" />
+        </button>
+        <button class="btn validate-btn" id="validate-btn">
+          Lancer le tirage !
+        </button>
+      </section>
+      <section class="draw" id="loading">
+        <h2 class="title" hidden>Loading</h2>
+        <div class="snippet main">
+          <div class="loader-container">
+            <div class="dot-windmill"></div>
+            <p>
+              Veuillez patienter <br />
+              Tirage en cours
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="error" class="draw">
+        <h2 class="title" hidden>Error</h2>
+        <img
+          class="sad-face title"
+          src="img/sad-face-in-rounded-square.png"
+          alt="erreur"
+        />
+        <div class="error-message main">
+          Nous n'avons pas trouvé de solution. <br />
+          Essayez d'enlever des règles !
+        </div>
+        <div class="error-btns">
+          <button class="btn backtorules-btn" id="backtorules-btn">
+            <i class="fi fi-sr-pencil modify-rule"></i>Modifier les règles
+          </button>
+          <button class="btn restart-btn" id="restart-btn">
+            <i class="fi fi-sr-rotate-right modify-rule"></i>Recommencer
+          </button>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <div>
+        &copy; 2022 - Designed & Created by
+        <a href="https://www.lisonfanuel.com">Lison Fanuel</a>
+        &#x1F525;<br />
+      </div>
+    </footer>
+    <!-- Insert this script at the bottom of the HTML, but before you use any Firebase services -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script type="module" src="scripts/firebase_init.js"></script>
+    <script type="module" src="scripts/script.js" async defer></script>
+  </body>
 </html>
