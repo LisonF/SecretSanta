@@ -1,618 +1,606 @@
 /* GENERAL */
 
 :root {
-    --white: #f2f3f7;
-    --grey: #b9b6b6;
-    --black: #25283d;
-    --blue: #3ab9b3;
-    --light-blue: #e5f0ef;
-    --pink: #d81e5b;
-    --medium-pink: #f4b9cc;
-    --light-pink: #fdedf2;
+  --white: #f2f3f7;
+  --grey: #b9b6b6;
+  --black: #25283d;
+  --blue: #3ab9b3;
+  --light-blue: #e5f0ef;
+  --pink: #d81e5b;
+  --medium-pink: #f4b9cc;
+  --light-pink: #fdedf2;
 
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 * {
-    text-align: center;
-    font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-    line-height: 1.5;
-    list-style-type: none;
-    box-sizing: border-box;
+  text-align: center;
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  line-height: 1.5;
+  list-style-type: none;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: var(--blue);
-    margin: 0;
+  background-color: var(--blue);
+  margin: 0;
 }
 
 h1 {
-    color: var(--white);
-    font-size: 50px;
-    font-weight: lighter;
-    line-height: 1;
-    margin: 30px auto 0 auto;
+  color: var(--white);
+  font-size: 50px;
+  font-weight: lighter;
+  line-height: 1;
+  margin: 30px auto 0 auto;
 }
 
 h2 {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 form {
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 1;
-    font-size: smaller;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+  font-size: smaller;
 }
 
-ol {
-    padding: 0;
-}
-
+/* HEADER */
 header {
-    width: 90%;
-    margin: 24px auto;
-    max-width: calc(350px + 40px);
+  width: 90%;
+  margin: 24px auto;
+  max-width: calc(350px + 40px);
 }
 
 .header-logo {
-    margin-left: -7%;
-    width: 90vw;
-    max-width: 350px;
+  margin-left: -7%;
+  width: 90vw;
+  max-width: 350px;
 }
 
 header h3 {
-    margin: -16px auto 0 auto;
-    font-size: 16px;
-    color: var(--black);
+  margin: -16px auto 0 auto;
+  font-size: 16px;
+  color: var(--black);
 }
 
 header p {
-    font-size: 12px;
-    color: var(--black);
-    margin: 8px auto;
+  font-size: 12px;
+  color: var(--black);
+  margin: 8px auto;
 }
 
 header p img {
-    display: inline-block;
-    height: 18px;
-    margin-bottom: -2px;
+  display: inline-block;
+  height: 18px;
+  margin-bottom: -2px;
 }
-
 
 /*MAIN BOX*/
 #biggerbox {
-    display: flex;
-    align-items: center;
-    width: 98%;
-    max-width: 350px;
-    /* min-height: calc(80vh - 110px); */
-    background-color: var(--white);
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-    border-radius: 10px;
+  display: flex;
+  align-items: center;
+  width: 98%;
+  max-width: 350px;
+  /* min-height: calc(80vh - 110px); */
+  background-color: var(--white);
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
 }
 
 .draw {
-    display: none;
-    grid-template-rows: [title] 60px [main] 1fr [btn] 100px;
-    grid-template-columns: 50% 50%;
-    justify-content: center;
-    column-gap: 10px;
-    min-height: calc(80vh - 110px);
-    box-sizing: border-box;
-    width: 100%;
+  display: none;
+  grid-template-rows: [title] 60px [main] 1fr [btn] 100px;
+  grid-template-columns: 50% 50%;
+  justify-content: center;
+  column-gap: 10px;
+  min-height: calc(80vh - 110px);
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .draw#nbParticipants {
-    min-height: calc(80vh - 180px);
+  min-height: calc(80vh - 180px);
 }
 
 .title {
-    grid-row: title;
-    grid-column-end: span 2;
+  grid-row: title;
+  grid-column-end: span 2;
 }
 
 .main {
-    grid-row: main;
-    grid-column-end: span 2;
+  grid-row: main;
+  grid-column-end: span 2;
 }
-
 
 /* Navigation Buttons*/
 
 .btn {
-    
-    background-color: var(--white);
-    padding: 15px;
-    color: var(--black);
-    border-radius: 5px;
-    border: none;
-    align-self: end;
-    justify-self: center;
-    display: block;
-    padding: 0;
-    grid-row: btn;
-    line-height: 0;
+  background-color: var(--white);
+  padding: 15px;
+  color: var(--black);
+  border-radius: 5px;
+  border: none;
+  align-self: end;
+  justify-self: center;
+  display: block;
+  padding: 0;
+  grid-row: btn;
+  line-height: 0;
 }
 
 .btn:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .btn img {
-    height: 50px;
-    width: 50px;
-    margin: auto;
-    filter: invert(18%) sepia(98%) saturate(3891%) hue-rotate(331deg)
-        brightness(89%) contrast(88%);
+  height: 50px;
+  width: 50px;
+  margin: auto;
+  filter: invert(18%) sepia(98%) saturate(3891%) hue-rotate(331deg)
+    brightness(89%) contrast(88%);
 }
 
 .btn img:hover,
 .btn img:active {
-    filter: invert(55%) sepia(45%) saturate(581%) hue-rotate(128deg)
-        brightness(107%) contrast(84%);
+  filter: invert(55%) sepia(45%) saturate(581%) hue-rotate(128deg)
+    brightness(107%) contrast(84%);
 }
 
 /*Number of participants*/
 #n {
-    background-color: var(--white);
-    color: var(--pink);
-    margin: auto;
-    padding: 15px;
-    font-size: large;
-    border: var(--grey) 1px solid;
-    border-radius: 5px;
-    max-width: 100%;
+  background-color: var(--white);
+  color: var(--pink);
+  margin: auto;
+  padding: 15px;
+  font-size: large;
+  border: var(--grey) 1px solid;
+  border-radius: 5px;
+  max-width: 100%;
 }
 
 #nbParticipants .next-btn {
-    grid-column-end: span 2;
-    margin: 0;
+  grid-column-end: span 2;
+  margin: 0;
 }
 
 /*Name inputs*/
 .participantName-input {
-    margin: 15px 8px;
-    background-color: var(--white);
-    text-align: center;
-    outline: none;
-    border: none;
-    border-bottom: solid 1px var(--grey);
-    color: var(--pink);
-    caret-color: var(--black);
-    font-weight: bold;
-    font-size: large;
-    max-width: 100%;
+  margin: 15px 8px;
+  background-color: var(--white);
+  text-align: center;
+  outline: none;
+  border: none;
+  border-bottom: solid 1px var(--grey);
+  color: var(--pink);
+  caret-color: var(--black);
+  font-weight: bold;
+  font-size: large;
+  max-width: 100%;
 }
 
 .participantName-input::placeholder {
-    font-weight: normal;
-    font-size: small;
+  font-weight: normal;
+  font-size: small;
 }
 /* Participants' rules*/
 .validate-btn {
-    background-color: var(--pink);
-    background: hsla(177, 52%, 48%, 1);
-    background: linear-gradient(
-        0deg,
-        hsla(177, 52%, 48%, 0.5) 20%,
-        hsla(340, 76%, 48%, 1) 100%
-    );
-    background: -moz-linear-gradient(
-        0deg,
-        hsla(177, 52%, 48%, 0.5) 20%,
-        hsla(340, 76%, 48%, 1) 100%
-    );
-    background: -webkit-linear-gradient(
-        0deg,
-        hsla(177, 52%, 48%, 0.5) 20%,
-        hsla(340, 76%, 48%, 1) 100%
-    );
-    /* TODO: Problem with progid */
-    /* Il manque un point-virgule avant la propriété “progid” 	
+  background-color: var(--pink);
+  background: hsla(177, 52%, 48%, 1);
+  background: linear-gradient(
+    0deg,
+    hsla(177, 52%, 48%, 0.5) 20%,
+    hsla(340, 76%, 48%, 1) 100%
+  );
+  background: -moz-linear-gradient(
+    0deg,
+    hsla(177, 52%, 48%, 0.5) 20%,
+    hsla(340, 76%, 48%, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    0deg,
+    hsla(177, 52%, 48%, 0.5) 20%,
+    hsla(340, 76%, 48%, 1) 100%
+  );
+  /* TODO: Problem with progid */
+  /* Il manque un point-virgule avant la propriété “progid” 	
     La propriété “progid” n'existe pas : DXImageTransform 	
     Erreur lors de l'analyse grammaticale. DXImageTransform.Microsoft.gradient( startColorstr="#3AB9B3", endColorstr="#D81E5B", GradientType=1 );  */
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#3AB9B3", endColorstr="#D81E5B", GradientType=1 );
-    margin: 0;
-    height: 50px;
-    color: var(--white);
-    padding: 0 1em;
-    justify-self: center;
-    align-self: end;
-    border-radius: 25px;
-    font-weight: bold;
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#3AB9B3", endColorstr="#D81E5B", GradientType=1 );
+  margin: 0;
+  height: 50px;
+  color: var(--white);
+  padding: 0 1em;
+  justify-self: center;
+  align-self: end;
+  border-radius: 25px;
+  font-weight: bold;
 }
 
 .validate-btn:hover {
-    background-color: var(--pink);
-    background: hsla(177, 52%, 48%, 1);
-    background: linear-gradient(
-        0deg,
-        hsla(340, 76%, 48%, 1) 0%,
-        hsla(177, 52%, 48%, 0.5) 80%
-    );
-    background: -moz-linear-gradient(
-        0deg,
-        hsla(340, 76%, 48%, 1) 0%,
-        hsla(177, 52%, 48%, 0.5) 80%
-    );
-    background: -webkit-linear-gradient(
-        0deg,
-        hsla(340, 76%, 48%, 1) 0%,
-        hsla(177, 52%, 48%, 0.5) 80%
-    );
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#D81E5B", endColorstr="#3AB9B3", GradientType=1 );
-    margin: 0;
-    height: 50px;
-    color: var(--white);
-    padding: 0 1em;
-    justify-self: center;
-    border-radius: 25px;
-    font-weight: bold;
+  background-color: var(--pink);
+  background: hsla(177, 52%, 48%, 1);
+  background: linear-gradient(
+    0deg,
+    hsla(340, 76%, 48%, 1) 0%,
+    hsla(177, 52%, 48%, 0.5) 80%
+  );
+  background: -moz-linear-gradient(
+    0deg,
+    hsla(340, 76%, 48%, 1) 0%,
+    hsla(177, 52%, 48%, 0.5) 80%
+  );
+  background: -webkit-linear-gradient(
+    0deg,
+    hsla(340, 76%, 48%, 1) 0%,
+    hsla(177, 52%, 48%, 0.5) 80%
+  );
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#D81E5B", endColorstr="#3AB9B3", GradientType=1 );
+  margin: 0;
+  height: 50px;
+  color: var(--white);
+  padding: 0 1em;
+  justify-self: center;
+  border-radius: 25px;
+  font-weight: bold;
 }
 
 /* Create a rule */
-
-
-/* Create a rule - New rule menu*/
+/** Create a rule - New rule menu**/
 .new-rule-container {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    background-color: var(--light-blue);
-    justify-items: center;
-    align-items: center;
-    margin: 0;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  background-color: var(--light-blue);
+  justify-items: center;
+  align-items: center;
+  margin: 0;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
+.new-rule-container button {
+  align-self: center;
+  background-color: white;
+  border-radius: 50%;
+  line-height: 0;
+  height: 45px;
+  width: 45px;
+  margin-bottom: 10px;
+}
+
+.new-rule-container .btn img {
+  border-radius: 50%;
+  background: none;
+  height: 45px;
+  width: 45px;
+}
 .reciprocal-rule-container {
-    height: 30px;
+  height: 30px;
 }
 
 .new-rule-container h4,
 .reciprocal-rule-container {
-    grid-column-end: span 3;
+  grid-column-end: span 3;
 }
 
 .ruleText {
-    grid-column: 1 / span 3;
-    display: inline-block;
-    vertical-align: bottom;
-    margin: 1em;
+  grid-column: 1 / span 3;
+  display: inline-block;
+  vertical-align: bottom;
+  margin: 1em;
 }
 
 .ruleText#text {
-    display: inline-block;
-    align-self: flex-end;
+  display: inline-block;
+  align-self: flex-end;
 }
 
-.ruleText [class*='participant'] {
-    display: inline-flex;
-    align-items: center;
-    background-color: var(--white);
-    color: var(--pink);
-    border: none;
-    font-weight: bold;
-    min-width: 50px;
-    padding: 0.5em 2em;
-    margin: auto 1em;
-    border-radius: 5px;
-    vertical-align: middle;
+.ruleText [class*="participant"] {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--white);
+  color: var(--pink);
+  border: none;
+  font-weight: bold;
+  min-width: 50px;
+  padding: 0.5em 2em;
+  margin: auto 1em;
+  border-radius: 5px;
+  vertical-align: middle;
 }
 
 #reciprocal-container {
-    padding: 2em 0;
-    grid-column-end: span 2;
+  padding: 2em 0;
+  grid-column-end: span 2;
 }
 
 #add-rule {
-    justify-self: left;
-    margin-left: 10px;
-    grid-column: 2;
-    grid-row: 4;
+  justify-self: left;
+  margin-left: 10px;
+  grid-column: 2;
+  grid-row: 4;
 }
 
 #cancel-rule {
-    justify-self: right;
-    margin-right: 10px;
-    grid-column: 1;
-    grid-row: 4;
+  justify-self: right;
+  margin-right: 10px;
+  grid-column: 1;
+  grid-row: 4;
 }
 
-/* Create a rule - Rules' summary*/
-.new-rule-container button {
-    align-self: center;
-    background-color: white;
-    border-radius: 50%;
-    line-height: 0;
-    height: 45px;
-    width: 45px;
-    margin-bottom: 10px;
+/** Create a rule - Rules' summary **/
+.rules-list-container {
+  height: 100%;
+  padding: 20px;
+}
+#rules-list {
+  margin: 0;
+  padding: 0;
 }
 
-.new-rule-container .btn img {
-    border-radius: 50%;
-    background: none;
-    height: 45px;
-    width: 45px;
+#rules-list li {
+  line-height: 1.5;
 }
 
 #rules-list i {
-    margin: auto;
-    color: var(--blue);
+  margin: auto;
+  color: var(--blue);
 }
 
 #rules-list span {
-    font-weight: bold;
+  font-weight: bold;
 }
 #rules-list i:last-of-type {
-    padding-right: 1em;
+  padding-right: 1em;
 }
 
 #rules-list i:hover {
-    color: var(--pink);
-    cursor: pointer;
+  color: var(--pink);
+  cursor: pointer;
 }
 
 #rules-list li {
-    margin: 1em 0;
-}
-
-
-.rules-list-container {
-    height: 100%;
-    padding: 20px;
-}
-#rules-list {
-    margin: 0;
-    padding: 0;
-}
-
-#rules-list li {
-    line-height: 1.5;
+  margin: 1em 0;
 }
 
 #create-rule {
-    margin: 30px auto;
+  margin: 30px auto;
 }
 
 #create-rule img {
-    filter: invert(55%) sepia(45%) saturate(581%) hue-rotate(128deg)
-        brightness(107%) contrast(84%);
+  filter: invert(55%) sepia(45%) saturate(581%) hue-rotate(128deg)
+    brightness(107%) contrast(84%);
 }
 
 #create-rule img:hover,
 #create-rule img:active {
-    height: 50px;
-    width: 50px;
-    margin: auto;
-    filter: invert(18%) sepia(98%) saturate(3891%) hue-rotate(331deg)
-        brightness(89%) contrast(88%);
+  height: 50px;
+  width: 50px;
+  margin: auto;
+  filter: invert(18%) sepia(98%) saturate(3891%) hue-rotate(331deg)
+    brightness(89%) contrast(88%);
 }
 
 /* Loader */
-
 .dot-windmill {
-    margin: 0 auto;
-    position: relative;
-    top: -10px;
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-    background-color: var(--blue);
-    color: var(--blue);
-    transform-origin: 5px 15px;
-    animation: dotWindmill 2s infinite linear;
+  margin: 0 auto;
+  position: relative;
+  top: -10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: var(--blue);
+  color: var(--blue);
+  transform-origin: 5px 15px;
+  animation: dotWindmill 2s infinite linear;
 }
 
 .dot-windmill::before,
 .dot-windmill::after {
-    content: '';
-    display: inline-block;
-    position: absolute;
+  content: "";
+  display: inline-block;
+  position: absolute;
 }
 
 .dot-windmill::before {
-    left: -8.66px;
-    top: 15px;
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-    background-color: var(--pink);
-    color: var(--pink);
+  left: -8.66px;
+  top: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: var(--pink);
+  color: var(--pink);
 }
 
 .dot-windmill::after {
-    left: 8.66px;
-    top: 15px;
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-    background-color: var(--grey);
-    color: var(--grey);
+  left: 8.66px;
+  top: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: var(--grey);
+  color: var(--grey);
 }
 
 @keyframes dotWindmill {
-    0% {
-        transform: rotateZ(0deg) translate3d(0, 0, 0);
-    }
-    100% {
-        transform: rotateZ(720deg) translate3d(0, 0, 0);
-    }
+  0% {
+    transform: rotateZ(0deg) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: rotateZ(720deg) translate3d(0, 0, 0);
+  }
 }
 
 .loader-container p {
-    margin-top: 3em;
+  margin-top: 3em;
 }
 
 /* Results */
 .draw.results {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .results .main {
-    margin: auto;
-    align-self: center;
-    /* background-color: var(--light-blue);
-    padding: 1em 2em;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
+  margin: auto;
+  align-self: center;
 }
 
 .results .main ul {
-    padding: 0;
-    margin: 2em auto;
-    width: fit-content;
-    text-align: left;
+  padding: 0;
+  margin: 2em auto;
+  width: fit-content;
+  text-align: left;
 }
 
 .results .main ul li {
-    text-align: left;
+  text-align: left;
 }
 .results .main ul li:not(:first-of-type) {
-    margin-top: 0.5em;
-    text-align: left;
+  margin-top: 0.5em;
+  text-align: left;
 }
 
 #error .btn,
 .results-btns .btn {
-    line-height: 0;
-    border: solid 3px var(--pink);
-    height: 50px;
-    padding: 0 1em;
-    justify-self: center;
-    align-self: end;
-    border-radius: 25px;
-    font-weight: bold;
+  line-height: 0;
+  border: solid 3px var(--pink);
+  height: 50px;
+  padding: 0 1em;
+  justify-self: center;
+  align-self: end;
+  border-radius: 25px;
+  font-weight: bold;
 }
 
 .restart-btn,
 #error .btn {
-    color: var(--pink);
+  color: var(--pink);
 }
 
 .share-buttons {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .shared-result {
-    margin: 0;
+  margin: 0;
 }
 
 #restart-btn {
-    margin-right: 8px;
+  margin-right: 8px;
 }
 .share-btn,
 .clipboard {
-    display: none;
-    color: white;
-    background-color: var(--pink);
-    margin-left: 8px;
+  display: none;
+  color: white;
+  background-color: var(--pink);
+  margin-left: 8px;
 }
 
 #restart-btn,
 .share-btn,
 .clipboard {
-    margin-bottom: 18px;
+  margin-bottom: 18px;
 }
 
 .share-btn:hover,
 .clipboard:hover,
 .share-btn:active,
 .clipboard:active {
-    background-color: var(--blue);
-    border: solid 3px var(--blue);
+  background-color: var(--blue);
+  border: solid 3px var(--blue);
 }
 
 #restart-btn:hover,
 #restart-btn:active,
 #error .btn:hover,
 #error .btn:active {
-    color: var(--blue);
-    border: solid 3px var(--blue);
+  color: var(--blue);
+  border: solid 3px var(--blue);
 }
 
 .results-btns {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
 }
 
 #share-btn i,
 #restart-btn i,
 .clipboard i {
-    margin-right: 0.5em;
+  margin-right: 0.5em;
 }
 
 .shared-result {
-    font-size: 12px;
-    color: var(--black);
-    margin-top: -18px;
-    margin-left: 8px;
+  font-size: 12px;
+  color: var(--black);
+  margin-top: -18px;
+  margin-left: 8px;
 }
 
 /* ERROR */
 .sad-face {
-    height: 75px;
-    width: 75px;
-    grid-column-end: span 2;
-    justify-self: center;
-    margin: 16px auto;
-    filter: invert(12%) sepia(7%) saturate(3221%) hue-rotate(195deg)
-        brightness(100%) contrast(90%);
+  height: 75px;
+  width: 75px;
+  grid-column-end: span 2;
+  justify-self: center;
+  margin: 16px auto;
+  filter: invert(12%) sepia(7%) saturate(3221%) hue-rotate(195deg)
+    brightness(100%) contrast(90%);
 }
 
 .error-message {
-    align-self: center;
-    line-height: 1.7;
+  align-self: center;
+  line-height: 1.7;
 }
 
 .error-btns {
-    align-self: end;
-    grid-column-end: span 2;
+  align-self: end;
+  grid-column-end: span 2;
 }
 
 #error .btn {
-    margin: 2em auto 0 auto;
+  margin: 2em auto 0 auto;
 }
 
 #error .btn i {
-    margin-right: 0.5em;
+  margin-right: 0.5em;
 }
 
 /* Footer */
 footer {
-    width: 80vh;
-    max-width: 350px;
-    margin: 2em auto 0 auto;
-    /* padding-bottom: 1em; */
+  width: 80vh;
+  max-width: 350px;
+  margin: 2em auto 0 auto;
+  /* padding-bottom: 1em; */
 }
 footer div {
-    color: var(--white);
-    font-size: 12px;
-    margin: 2em auto 1em auto;
+  color: var(--white);
+  font-size: 12px;
+  margin: 2em auto 1em auto;
 }
 
 footer div a {
-    color: var(--pink);
+  color: var(--white);
 }
-footer div a:hover, footer div a:active, footer div a:focus  {
-    color: var(--white);
+footer div a:hover,
+footer div a:active,
+footer div a:focus {
+  color: var(--white);
 }
 @media only screen and (min-width: 768px) {
-    #biggerbox {
-        width: 80%;
-    }
+  header {
+    width: 80%;
+    margin: 24px auto;
+  }
 
-    header {
-        width: 80%;
-        margin: 24px auto;
-    }
+  #biggerbox {
+    width: 80%;
+  }
 
-    .draw {
-        min-height: calc(80vh - 122px);
-    }
+  .draw {
+    min-height: calc(80vh - 122px);
+  }
 }
