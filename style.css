@@ -34,6 +34,10 @@ h1 {
   margin: 30px auto 0 auto;
 }
 
+.cgu h1 {
+  color: var(--black);
+}
+
 h2 {
   font-size: 18px;
 }
@@ -574,20 +578,16 @@ footer {
   width: 80vh;
   max-width: 350px;
   margin: 2em auto 0 auto;
-  /* padding-bottom: 1em; */
-}
-footer div {
   color: var(--white);
   font-size: 12px;
-  margin: 2em auto 1em auto;
 }
 
-footer div a {
+footer a {
   color: var(--white);
 }
-footer div a:hover,
-footer div a:active,
-footer div a:focus {
+footer a:hover,
+footer a:active,
+footer a:focus {
   color: var(--white);
 }
 @media only screen and (min-width: 768px) {
@@ -603,4 +603,19 @@ footer div a:focus {
   .draw {
     min-height: calc(80vh - 122px);
   }
+}
+
+/* CGU */
+.cgu {
+  margin: 0 10%;
+  padding: 5%;
+  background-color: var(--white);
+  border-radius: 10px;
+}
+.cgu h1 {
+  font-size: x-large;
+  font-weight: bold;
+}
+.cgu * {
+  text-align: left;
 }
