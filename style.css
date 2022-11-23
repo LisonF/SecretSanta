@@ -607,7 +607,7 @@ footer a:focus {
 
 /* CGU */
 .cgu {
-  margin: 0 10%;
+  margin: 0 10vh;
   padding: 5%;
   background-color: var(--white);
   border-radius: 10px;
